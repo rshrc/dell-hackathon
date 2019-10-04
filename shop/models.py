@@ -40,7 +40,13 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    # when revisiting the website
     def get_absolute_url(self):
+        return reverse('shop:product_revisit',
+                       args=[self.id, self.slug])
+
+    # when visiting the site for the first time
+    def get_absolute_url_visit_1(self):
         return reverse('shop:product_detail',
                        args=[self.id, self.slug])
 

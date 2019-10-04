@@ -19,6 +19,16 @@ def landing_page(request, category_slug=None):
                    'products': products,
                    'current_user': current_user})
 
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product, id=id, slug=slug, available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request,
+                  'shop/product/detail.html',
+                  {'product': product,
+                   'cart_product_form': cart_product_form})
+
+
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -36,14 +46,14 @@ def product_list(request, category_slug=None):
                    'current_user': current_user})
 
 
-def product_detail(request, id, slug):
+def product_revisit(request, id, slug):
     product = get_object_or_404(Product,
                                 id=id,
                                 slug=slug,
                                 available=True)
     cart_product_form = CartAddProductForm()
     return render(request,
-                  'shop/product/detail.html',
+                  'shop/product/revisit.html',
                   {'product': product,
                    'cart_product_form': cart_product_form})
 
