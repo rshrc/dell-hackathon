@@ -11,17 +11,23 @@
         <h1>{{ product.name }}</h1>
         <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
         <p class="price">₹{{ product.price }}</p>
-        <form action="{% url "cart:cart_add" product.id %}" method="post">
-            {{ cart_product_form }}
-            {% csrf_token %}
-            <input type="submit" value="Buy">
-        </form>
+        <div class="row" style="margin-left: 25px;">
+            {# Proceed to Checkout directly if Buy #}
+            <form action="{% url "cart:cart_add" product.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="submit" value="Add to Cart" class="btn btn-danger">
+            </form>
+            <a href="{% url "orders:order_create" %}" class="btn btn-success" style="margin-left: 10px">
+                Checkout
+            </a>
+        </div>
         {{ product.description|linebreaks }}
-{#        <a href="{% url "shop:service_page" %}" type="submit" class="btn btn-success">#}
-{#            Service Products#}
-{#        </a>#}
-{#        <a href="{% url "shop:support_page" %}" type="submit" class="btn btn-success">#}
-{#            Support Services#}
-{#        </a>#}
+        {#        <a href="{% url "shop:service_page" %}" type="submit" class="btn btn-success">#}
+        {#            Service Products#}
+        {#        </a>#}
+        {#        <a href="{% url "shop:support_page" %}" type="submit" class="btn btn-success">#}
+        {#            Support Services#}
+        {#        </a>#}
     </div>
 {% endblock %}

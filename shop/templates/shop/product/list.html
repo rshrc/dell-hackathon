@@ -26,7 +26,7 @@
         <h1>{% if category %}{{ category.name }}{% else %}Purchased Items{% endif %}</h1>
         {% for product in products %}
             <div class="item">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <a href="{{ product.get_absolute_url }}">
                         <img style="height: 200px; width: 200px;" src="
 
