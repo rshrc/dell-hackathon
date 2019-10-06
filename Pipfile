@@ -28,6 +28,7 @@ sqlparse = "*"
 stripe = "*"
 urllib3 = "*"
 redis = "*"
+celery = "*"
 
 [scripts]
 start = "python3 manage.py runserver"
