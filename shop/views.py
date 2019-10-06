@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from shop.models import Category, Product, Service, Support
 from cart.forms import CartAddProductForm
+from shop.recommender import Recommender
 
 
 def landing_page(request, category_slug=None):
@@ -52,10 +53,13 @@ def product_revisit(request, id, slug):
                                 slug=slug,
                                 available=True)
     cart_product_form = CartAddProductForm()
+    r = Recommender()
+    recommended_products = r.suggest_products_for([product], 4)
     return render(request,
                   'shop/product/revisit.html',
                   {'product': product,
-                   'cart_product_form': cart_product_form})
+                   'cart_product_form': cart_product_form,
+                   'recommended_products': recommended_products})
 
 
 def service_detail(request, id):
