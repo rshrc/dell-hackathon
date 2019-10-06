@@ -4,9 +4,30 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+yapf = "*"
 
 [packages]
 django = "==2.*"
+certifi = "*"
+chardet = "*"
+defusedxml = "*"
+django-allauth = "*"
+django-countries = "*"
+django-crispy-forms = "*"
+django-debug-toolbar = "*"
+idna = "*"
+oauthlib = "*"
+pillow = "*"
+pycodestyle = "*"
+python-decouple = "*"
+python3-openid = "*"
+pytz = "*"
+requests = "*"
+requests-oauthlib = "*"
+sqlparse = "*"
+stripe = "*"
+urllib3 = "*"
+redis = "*"
 
 [scripts]
 start = "python3 manage.py runserver"
