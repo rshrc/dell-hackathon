@@ -56,7 +56,7 @@
             {% for p in recommended_products %}
                 <div class="item">
                     <a href="{{ p.get_absolute_url }}">
-                        <img src="{% if p.image %}{{ p.image.url }}{% else %}
+                        <img style="height: 150px; width: 150px" src="{% if p.image %}{{ p.image.url }}{% else %}
                          {% static "img/no_image.png" %}{% endif %}">
                     </a>
                     <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
