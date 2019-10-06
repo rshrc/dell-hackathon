@@ -29,5 +29,13 @@
         {#        <a href="{% url "shop:support_page" %}" type="submit" class="btn btn-success">#}
         {#            Support Services#}
         {#        </a>#}
+    <div>
+        <h1>Reviews</h1>
+        {% for review in reviews %}
+            <p>{{ review.user }}</p>
+            <p>{{ review.review }}</p>
+        {% endfor %}
     </div>
+    </div>
+
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Service, Support
+from .models import Category, Product, Service, Support, Review
 
 admin.site.site_header = 'Backend Administration'
 
@@ -27,3 +27,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product', 'review']
+    list_filter = ['user', 'product', 'review']

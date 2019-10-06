@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
-
+# from users.models import UserProfile
+from django.contrib.auth.models import User
+from django.conf import settings
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -84,3 +86,12 @@ class Support(models.Model):
     def get_absolute_url(self):
         return reverse('shop:support_page',
                        args=[self.id, self.slug])
+
+
+class Review(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    review = models.TextField()
+
+    def __str__(self):
+        return self.review
