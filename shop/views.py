@@ -2,6 +2,15 @@ from django.shortcuts import render, get_object_or_404
 from shop.models import Category, Product, Service, Support, Review
 from cart.forms import CartAddProductForm
 from shop.recommender import Recommender
+from rest_framework import generics, filters
+from shop.serializers import ProductSerializer
+from conf import fields
+
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    filter_backends = (filters.SearchFilter,)
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    search_fields = list(fields.PRODUCT_FIELDS_API)
 
 
 def landing_page(request, category_slug=None):

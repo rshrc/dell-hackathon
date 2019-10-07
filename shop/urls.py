@@ -6,7 +6,8 @@ from shop.views import (
     service_page,
     support_page,
     service_purchased,
-    landing_page
+    landing_page,
+    ProductListCreateAPIView
 )
 
 app_name = 'shop'
@@ -23,5 +24,6 @@ urlpatterns = [
     path('services', service_page, name='service_page'),
     path('supports', support_page, name='support_page'),
     path('service/purchased/', service_purchased, name='service_purchased'),
+    path('api/products/', ProductListCreateAPIView.as_view())
 
 ]
