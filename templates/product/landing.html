@@ -1,9 +1,32 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block title %}
-    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+    {% if category %}{{ category.name }}{% else %}Shop{% endif %}
 {% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="{% url 'shop:landing_page' %}">SHOP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <form class="form-inline ml-auto">
+                <input class="form-control" type="search" placeholder="Search" size="50">
+                <input type="submit" hidden/>
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link mr-3" href="#"><i class="fa fa-shopping-cart" style="font-size:2rem;"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-dark" href="#">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock navbar %}
 
 {% block content %}
     <div id="sidebar">
@@ -26,10 +49,10 @@
         {% for product in products %}
             <div class="item">
                 <div class="col-lg-5">
-                    <a href="{{ product.get_absolute_url_visit_1 }}">
+                    {% comment %} <a href="{{ product.get_absolute_url_visit_1 }}">
                         <img style="height: 200px; width: 200px;" src="
                                 {% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-                    </a>
+                    </a> {% endcomment %}
                     <a href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a><br>
                     ₹{{ product.price }}
                 </div>
