@@ -5,6 +5,8 @@ from shop.recommender import Recommender
 from rest_framework import generics, filters
 from shop.serializers import ProductSerializer
 from conf import fields
+# from django.contrib.gis.geoip2 import GeoIP2
+
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
@@ -18,6 +20,16 @@ def landing_page(request, category_slug=None):
     categories = Category.objects.all()
     current_user = request.user.userprofile
     products = Product.objects.all()
+    # todo return location
+    # geoIP = GeoIP2()
+    # ip = request.META.get('REMOTE_ADDR', None)
+    # if ip:
+    #     city = geoIP.city(ip)['city']
+    #     country = geoIP.country()['country']
+    # else:
+    #     city = 'Asansol'
+    #     country = 'West Bengal'
+    # location = {'city': city, 'country': country}
     print("Products for Landing Page : " + str(products))
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
@@ -27,7 +39,8 @@ def landing_page(request, category_slug=None):
                   {'category': category,
                    'categories': categories,
                    'products': products,
-                   'current_user': current_user})
+                   'current_user': current_user,
+                   'location': "Jaipur, Rajasthan"})
 
 
 def product_detail(request, id, slug):
