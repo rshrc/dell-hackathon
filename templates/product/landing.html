@@ -6,7 +6,7 @@
 
 {% block header %}
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'shop:landing_page' %}">Shop</a>
                 <div class="collapse navbar-collapse">
@@ -19,7 +19,7 @@
             </div>
         </nav>
 
-        <section>
+        <section class="mb-5">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-3">
@@ -92,35 +92,107 @@
 {% endblock header %}
 
 {% block content %}
-    <div id="sidebar">
-        <h3>Categories</h3>
-        <ul>
-            <li {% if not category %}class="selected"{% endif %}>
-                <a href="{% url "shop:landing_page" %}">All</a>
-            </li>
-            {% for c in categories %}
-                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
-                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-        <br>
-        <a class="btn btn-primary" href="{% url "shop:product_list" %}">My Purchases</a>
-    </div>
-    <div id="main" class="product-list">
-        <h1>{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
-        {% for product in products %}
-            <div class="item">
-                <div class="col-lg-5">
-                    {% comment %} <a href="{{ product.get_absolute_url_visit_1 }}">
-                        <img style="height: 200px; width: 200px;" src="
-                                {% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-                    </a> {% endcomment %}
-                    <a href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a><br>
-                    ₹{{ product.price }}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <div class="mb-5">
+                        <h4 class="mb-3">Shop by Categories</h4>
+                        <ul class="pl-0 shop-list list-unstyled">
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Women’s Clothing</span><span>9</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Man Fashion</span><span>5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Kid’s Clothing</span><span>3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Watches &amp; Jewelry</span><span>2</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Bags &amp; Shoes</span><span>7</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Toys &amp; Kids</span><span>1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Electronics</span><span>8</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex py-2 text-gray justify-content-between">
+                                    <span>Computers</span><span>11</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="mb-4">Shop by Price</h4>
+                        <div class="col-auto">
+                            <input id="price-slider" type="text" class="span2"/> 
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-sm btn-primary">Filter</button>
+                            <span><i class="fa fa-inr"><span id="price-slider-min-value" class="font-weight-bold"></span></i> - <i class="fa fa-inr"><span id="price-slider-max-value" class="font-weight-bold"></span></i></span>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <h4 class="mb-3">Shop by Size</h4>
+                        <form action="#">
+                            <div class="d-flex justify-content-between">
+                                <label class="label">L Large
+                                    <input type="checkbox">
+                                    <span class="box"></span>
+                                </label>
+                                <span class="mt-2">9</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <label class="label">XL Extra Large
+                                    <input type="checkbox">
+                                    <span class="box"></span>
+                                </label>
+                                <span class="mt-2">5</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <label class="label">M Medium
+                                    <input type="checkbox">
+                                    <span class="box"></span>
+                                </label>
+                                <span class="mt-2">8</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <label class="label">S Small
+                                    <input type="checkbox">
+                                    <span class="box"></span>
+                                </label>
+                                <span class="mt-2">5</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <label class="label">XS Extra Small
+                                    <input type="checkbox">
+                                    <span class="box"></span>
+                                </label>
+                                <span class="mt-2">3</span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
-
-    </div>
+        </div>
+    </section>
 {% endblock %}
