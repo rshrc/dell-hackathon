@@ -6,13 +6,13 @@
 
 {% block header %}
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'shop:landing_page' %}">Shop</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Group 2</a>
+                            <a href="#" class="nav-link p-0">Group 2</a>
                         </li>
                     </ul> 
                 </div>
@@ -42,7 +42,7 @@
                                 </select>
                                 <input type="text" class="form-control" style="width:50%;" placeholder="Search">
                                 <div class="input-group-append">
-                                    <button class="btn btn-warning" type="submit">
+                                    <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-search"></i> Search
                                     </button>
                                 </div>
@@ -55,7 +55,7 @@
                                 <div class="dropdown">
                                     <a href="#" data-toggle="dropdown" data-offset="20,10">
                                         <div class="text-dark">
-                                            <i class="text-warning icon-sm fa fa-user"></i> Account <i class="fa fa-caret-down"></i>
+                                            <i class="text-primary icon-sm fa fa-user"></i> Account <i class="fa fa-caret-down"></i>
                                         </div>
                                     </a>
                                     <div class="dropdown-menu">
@@ -79,7 +79,7 @@
                             <div class="col-auto">
                                 <a href="#">
                                     <div class="text-dark">
-                                        <i class="text-warning icon-sm fa fa-shopping-cart"></i> Cart
+                                        <i class="text-primary icon-sm fa fa-shopping-cart"></i> Cart
                                     </div>
                                 </a>
                             </div> <!--col-->
@@ -105,7 +105,7 @@
             {% endfor %}
         </ul>
         <br>
-        <a class="btn btn-warning" href="{% url "shop:product_list" %}">My Purchases</a>
+        <a class="btn btn-primary" href="{% url "shop:product_list" %}">My Purchases</a>
     </div>
     <div id="main" class="product-list">
         <h1>{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
