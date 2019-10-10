@@ -5,7 +5,7 @@ from shop.recommender import Recommender
 from rest_framework import generics, filters
 from shop.serializers import ProductSerializer
 from conf import fields
-
+from django.http import HttpResponse
 
 # from django.contrib.gis.geoip2 import GeoIP2
 
@@ -57,6 +57,7 @@ def product_detail(request, id, slug):
 
 
 def product_list(request, category_slug=None):
+    print("hello world")
     category = None
     categories = Category.objects.all()
     current_user = request.user.userprofile
@@ -122,4 +123,6 @@ def support_page(request):
 
 
 def search_page(request):
-    return render(request, 'shop/product/search.html', {})
+    print('hello')
+    # return render(request, 'shop/product/search.html', {})
+    return HttpResponse('Search')

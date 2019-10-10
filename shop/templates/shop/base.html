@@ -5,6 +5,7 @@
     <meta charset="utf-8"/>
     <title>{% block title %}Improved Product Recommendation{% endblock %}</title>
     <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <script src="{% static 'js/search.js' %}"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -16,6 +17,8 @@
         {% endif %}
         Improved Product Recommendation
     </a>
+    <input id="search_box">
+    <button id="search_box">Search</button>
     <div>
         <div class="nav navbar-nav navbar-right cart ">
             {% with total_items=cart|length %}
