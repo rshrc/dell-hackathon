@@ -5,6 +5,8 @@ from shop.recommender import Recommender
 from rest_framework import generics, filters
 from shop.serializers import ProductSerializer
 from conf import fields
+
+
 # from django.contrib.gis.geoip2 import GeoIP2
 
 
@@ -117,3 +119,7 @@ def support_page(request):
     supports = Support.objects.all()
 
     return render(request, 'shop/product/support.html', {'supports': supports})
+
+
+def search_page(request):
+    return render(request, 'shop/product/search.html', {})

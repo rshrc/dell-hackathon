@@ -14,12 +14,4 @@ PRODUCT_FIELDS = (
 PRODUCT_FIELDS_API = (
     'category__name',
     'name',
-    'slug',
-    'image',
-    'description',
-    'price',
-    'available',
-    'created',
-    'updated',
-    'conversion_rate',
 )
