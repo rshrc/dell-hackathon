@@ -34,3 +34,6 @@ __pycache__/
 *$py.class
 .venv/
 db.sqlite3
+
+# Django
+media
