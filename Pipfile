@@ -23,6 +23,7 @@ stripe = "*"
 urllib3 = "*"
 redis = "*"
 celery = "*"
+django-rest-framework = "*"
 
 [scripts]
 start = "python3 manage.py runserver"
