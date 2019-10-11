@@ -52,11 +52,21 @@
                     <div class="col-3 d-flex justify-content-end">
                         <div class="row py-1">
                             <div class="col-auto">
-                                <a href="{% url 'users:login' %}">
-                                    <div class="text-dark">
-                                        <i class="text-primary icon-sm fa fa-user"></i> Account
+                                <div class="dropdown">
+                                    <button id="dropdownMenuLink" class="btn btn-link p-0" data-toggle="dropdown">
+                                        <div class="text-dark">
+                                            <i class="text-primary icon-sm fa fa-user"></i> Account <i class="fa fa-caret-down"></i>
+                                        </div>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        {% if user.is_authenticated %}
+                                            <a class="dropdown-item" href="#">Profile</a>
+                                            <a class="dropdown-item" href="#">Logout</a>
+                                        {% else %}
+                                            <a class="dropdown-item" href="#">Login</a>
+                                        {% endif %}
                                     </div>
-                                </a>
+                                </div>
                             </div> <!--col-->
                             <div class="col-auto">
                                 <a href="#">

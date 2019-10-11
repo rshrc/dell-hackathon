@@ -5,22 +5,16 @@ verify_ssl = true
 
 [dev-packages]
 yapf = "*"
+pycodestyle = "*"
 
 [packages]
 django = "==2.*"
 certifi = "*"
 chardet = "*"
-defusedxml = "*"
-django-allauth = "*"
 django-countries = "*"
 django-crispy-forms = "*"
-django-debug-toolbar = "*"
-idna = "*"
-oauthlib = "*"
 pillow = "*"
-pycodestyle = "*"
 python-decouple = "*"
-python3-openid = "*"
 pytz = "*"
 requests = "*"
 requests-oauthlib = "*"
