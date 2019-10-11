@@ -20,4 +20,5 @@ urlpatterns = [
          views.service_purchased,
          name='service_purchased'),
     path('api/products/', views.ProductListCreateAPIView.as_view()),
+    path('api/reviews/<int:pk>', views.ReviewDataAPI.as_view()),
 ]

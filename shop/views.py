@@ -3,18 +3,32 @@ from shop.models import Category, Product, Service, Support, Review
 from cart.forms import CartAddProductForm
 from shop.recommender import Recommender
 from rest_framework import generics, filters
-from shop.serializers import ProductSerializer
+from shop.serializers import ProductSerializer, ReviewSerializier
 from conf import fields
 from django.http import HttpResponse
+
 
 # from django.contrib.gis.geoip2 import GeoIP2
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
-    filter_backends = (filters.SearchFilter, )
+    filter_backends = (filters.SearchFilter,)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     search_fields = list(fields.PRODUCT_FIELDS_API)
+
+
+# query to get reviews
+# Review.objects.filter(product__name=product_name)
+
+class ReviewDataAPI(generics.RetrieveAPIView):
+    # queryset = Review.objects.filter(product__name=product_name)
+    serializer_class = ReviewSerializier
+
+    def get_queryset(self):
+        product_id = self.kwargs['pk']
+        queryset = Review.objects.filter(product_id=product_id)
+        return queryset
 
 
 def landing_page(request, category_slug=None):

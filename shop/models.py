@@ -3,6 +3,7 @@ from django.urls import reverse
 # from users.models import UserProfile
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Category(models.Model):
@@ -93,6 +94,10 @@ class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     review = models.TextField()
+    stars = models.IntegerField(default=0, blank=True, validators=[
+        MaxValueValidator(5),
+        MinValueValidator(0)
+    ])
 
     def __str__(self):
         return self.review

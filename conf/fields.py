@@ -23,3 +23,10 @@ USER_PROFILE_FIELDS = (
     'gender',
     'occupation',
 )
+
+REVIEW_FIELDS = (
+    'user',
+    'product',
+    'review',
+    'stars',
+)
