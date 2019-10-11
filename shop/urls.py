@@ -1,29 +1,21 @@
 from django.urls import path
-from shop.views import (
-    product_list,
-    product_detail,
-    product_revisit,
-    service_page,
-    support_page,
-    service_purchased,
-    landing_page,
-    ProductListCreateAPIView
-)
+from . import views
 
 app_name = 'shop'
 
 urlpatterns = [
-    path('', landing_page, name='landing_page'),
-    path('purchased/', product_list, name='product_list'),
-    path('<int:id>/<slug:slug>/', product_detail,
+    path('', views.landing_page, name='landing_page'),
+    path('search/', views.search_page, name='search_page'),
+    path('purchased/', views.product_list, name='product_list'),
+    path('<int:id>/<slug:slug>/', views.product_detail,
          name='product_detail'),
-    path('<slug:category_slug>/', product_list,
+    path('<slug:category_slug>/', views.product_list,
          name='product_list_by_category'),
-    path('revisit/<int:id>/<slug:slug>/', product_revisit,
+    path('revisit/<int:id>/<slug:slug>/', views.product_revisit,
          name='product_revisit'),
-    path('services', service_page, name='service_page'),
-    path('supports', support_page, name='support_page'),
-    path('service/purchased/', service_purchased, name='service_purchased'),
-    path('api/products/', ProductListCreateAPIView.as_view())
+    path('services', views.service_page, name='service_page'),
+    path('supports', views.support_page, name='support_page'),
+    path('service/purchased/', views.service_purchased, name='service_purchased'),
+    path('api/products/', views.ProductListCreateAPIView.as_view()),
 
 ]

@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.utils import timezone
 from shop.models import Service, Product, Support
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -68,5 +69,9 @@ class UserProfile(models.Model):
             self.birthday) + " " + self.city + ", " + self.country + " Gold Member: " + str(self.gold_member)
 
 
+class InAppSearchHistory(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
 
-
+    def __str__(self):
+        return str(self.product)
