@@ -3,6 +3,8 @@ from django.db import models
 from django.utils import timezone
 from shop.models import Service, Product, Support
 from django.conf import settings
+from conf import choices
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class UserManager(BaseUserManager):
@@ -63,6 +65,8 @@ class UserProfile(models.Model):
     service_list = models.ManyToManyField(Service, related_name='service_lists', blank=True)
     support_list = models.ManyToManyField(Support, related_name='support_lists', blank=True)
     conversion_rate = models.IntegerField(default=0)
+    occupation = models.CharField(max_length=20, choices=choices.PROFILE_CHOICES, default='Normal User')
+    gender = models.CharField(max_length=6, choices=choices.GENDER_CHOICES, default='Male')
 
     def __str__(self):
         return self.user.email + " " + str(
