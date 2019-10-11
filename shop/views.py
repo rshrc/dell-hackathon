@@ -21,7 +21,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 # query to get reviews
 # Review.objects.filter(product__name=product_name)
 
-class ReviewDataAPI(generics.RetrieveAPIView):
+class ReviewDataAPI(generics.ListAPIView):
     # queryset = Review.objects.filter(product__name=product_name)
     serializer_class = ReviewSerializier
 
@@ -142,3 +142,6 @@ def search_page(request):
     print('hello')
     # return render(request, 'product/search.html', {})
     return HttpResponse('Search')
+
+def analytics(request, product_id):
+    return render(request, 'analytics/index.html', {'product_id': product_id})

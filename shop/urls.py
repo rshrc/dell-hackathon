@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.landing_page, name='landing_page'),
     path('search/', views.search_page, name='search_page'),
     path('purchased/', views.product_list, name='product_list'),
+    path('analytics/<int:product_id>', views.analytics, name='analytics'),
     path('<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
     path('<slug:category_slug>/',
          views.product_list,

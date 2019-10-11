@@ -45,7 +45,20 @@ function drawRatingsDistribution(data) {
     )
 
 }
-window.addEventListener('load', () => {
+
+async function getRatingsData(productId){
+    let response = await fetch(`/api/reviews/${productId}`);
+    let reviews = await response.json();
+    let ratings = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5:0};
+    reviews.forEach(review=>{
+        let stars = review.stars;
+        
+        ratings[stars]+=1;
+    })
+    return ratings
+}
+window.addEventListener('load', async () => {
+    ratingsData = await getRatingsData(productId);
     drawConversionChart({
         'January': 50,
         'February': 60,
@@ -54,11 +67,13 @@ window.addEventListener('load', () => {
         'May': 100
     })
 
-    drawRatingsDistribution({
-        '5 star': 12,
-        '4 star': 9,
-        '3 star': 21,
-        '2 star': 2,
-        '1 star': 5
-    })
+    drawRatingsDistribution(ratingsData);
+
+    // drawRatingsDistribution({
+    //     '5 star': 12,
+    //     '4 star': 9,
+    //     '3 star': 21,
+    //     '2 star': 2,
+    //     '1 star': 5
+    // })
 })
