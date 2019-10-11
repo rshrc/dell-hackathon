@@ -14,11 +14,11 @@ urlpatterns = [
         views.search_page,
         name='search_page',
     ),
-    path(
-        'purchased/',
-        views.product_list,
-        name='product_list',
-    ),
+    # path(
+    #     'purchased/',
+    #     views.product_list,
+    #     name='product_list',
+    # ),
     path(
         '<int:id>/<slug:slug>/',
         views.product_detail,
@@ -26,7 +26,7 @@ urlpatterns = [
     ),
     path(
         '<slug:category_slug>/',
-        views.product_list,
+        views.category_list_page,
         name='product_list_by_category',
     ),
     path(

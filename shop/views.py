@@ -22,10 +22,13 @@ def landing_page(request):
     # count of products in each category
     categories = dict()
     for category in Category.objects.all():
-        categories[str(category)] = products.filter(category__name__exact=category).count()
+        categories[str(category)] = [
+            category.slug,
+            products.filter(category__name__exact=category).count(),
+        ]
 
     return render(
-        request, 'product/landing.html', {
+        request, 'product/landing_page.html', {
             'categories': categories.items(),
             'products': products.all(),
             'current_user': current_user,
@@ -45,22 +48,28 @@ def product_detail(request, id, slug):
         })
 
 
-def product_list(request, category_slug=None):
-    print("hello world")
-    category = None
-    categories = Category.objects.all()
+def category_list_page(request, category_slug):
     current_user = request.user.userprofile
-    products = request.user.userprofile.product_list.all()
-    print("Products of current User : " + str(products))
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
+    products = Product.objects
+
+    # count of products in each category
+    categories = dict()
+    for category in Category.objects.all():
+        categories[str(category)] = [
+            category.slug,
+            products.filter(category__name__exact=category).count(),
+        ]
+
+    category = get_object_or_404(Category, slug=category_slug)
+    products = products.filter(category__name__exact=category)
+
     return render(
-        request, 'product/list.html', {
+        request, 'product/category_list_page.html', {
             'category': category,
-            'categories': categories,
-            'products': products,
-            'current_user': current_user
+            'categories': categories.items(),
+            'products': products.all(),
+            'current_user': current_user,
+            'location': "Jaipur, Rajasthan"
         })
 
 
@@ -90,8 +99,7 @@ def service_detail(request, id):
 def service_page(request):
     services = Service.objects.all()
 
-    return render(request, 'product/services.html',
-                  {'services': services})
+    return render(request, 'product/services.html', {'services': services})
 
 
 def service_purchased(request):
