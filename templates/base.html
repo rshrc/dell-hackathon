@@ -10,37 +10,13 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css">
-        <link rel="stylesheet" href="{% static "css/base.css" %}">
+        {% block custom_css %}
+        {% endblock custom_css %}
     </head>
 
     <body>
         {% block header %}
         {% endblock header %}
-
-        {% comment %} <div id="header" class="navbar">
-            <a href="/" class="logo">
-                {% if current_user.gold_member is True %}
-                    <img src="{% static 'img/gold_medal.png' %}" class="navbar-brand" style="height: 50px; width: 25px">
-                {% endif %}
-                Improved Product Recommendation
-            </a>
-            <div>
-                <div class="nav navbar-nav navbar-right cart ">
-                    {% with total_items=cart|length %}
-                        {% if cart|length > 0 %}
-                            Your cart:
-                            <a href="{% url "cart:cart_detail" %}">
-                                {{ total_items }} item{{ total_items|pluralize }},
-                                ₹{{ cart.get_total_price }}
-                            </a>
-                        {% else %}
-                            Your cart is empty.
-                        {% endif %}
-                    {% endwith %}
-                </div>
-            </div>
-        </div> {% endcomment %}
-
         
         {% block content %}
         {% endblock content %}

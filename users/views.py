@@ -12,20 +12,20 @@ class UserView(DetailView):
         return self.request.user
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(request,
-                                email=user.email,
-                                password=raw_password)
-            if user is not None:
-                login(request, user)
-            else:
-                print("user is not authenticated")
-            return redirect('users:profile')
-    else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+def register(request):
+    # if request.method == 'POST':
+    #     form = SignUpForm(request.POST)
+    #     if form.is_valid():
+    #         user = form.save()
+    #         raw_password = form.cleaned_data.get('password1')
+    #         user = authenticate(request,
+    #                             email=user.email,
+    #                             password=raw_password)
+    #         if user is not None:
+    #             login(request, user)
+    #         else:
+    #             print("user is not authenticated")
+    #         return redirect('users:profile')
+    # else:
+    #     form = SignUpForm()
+    return render(request, 'user/register.html')

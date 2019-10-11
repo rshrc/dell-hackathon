@@ -2,7 +2,7 @@
 
 {% block title %}
     {% if category %}{{ category.name }}{% else %}Shop{% endif %}
-{% endblock %}
+{% endblock title %}
 
 {% block header %}
     <header>
@@ -52,29 +52,11 @@
                     <div class="col-3 d-flex justify-content-end">
                         <div class="row py-1">
                             <div class="col-auto">
-                                <div class="dropdown">
-                                    <a href="#" data-toggle="dropdown" data-offset="20,10">
-                                        <div class="text-dark">
-                                            <i class="text-primary icon-sm fa fa-user"></i> Account <i class="fa fa-caret-down"></i>
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        <form class="px-4 py-3">
-                                            <div class="form-group">
-                                                <label>Email address</label>
-                                                <input type="email" class="form-control" placeholder="email@example.com">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input type="password" class="form-control" placeholder="Password">
-                                            </div>
-                                                <button type="submit" class="btn btn-primary">Sign in</button>
-                                        </form>
-                                        <hr class="dropdown-divider">
-                                        <a class="dropdown-item text-center" href="#">Have account? Sign up</a>
-                                        <a class="dropdown-item text-center" href="#">Forgot password?</a>
+                                <a href="{% url 'users:login' %}">
+                                    <div class="text-dark">
+                                        <i class="text-primary icon-sm fa fa-user"></i> Account
                                     </div>
-                                </div>
+                                </a>
                             </div> <!--col-->
                             <div class="col-auto">
                                 <a href="#">
@@ -195,4 +177,4 @@
             </div>
         </div>
     </section>
-{% endblock %}
+{% endblock content %}
