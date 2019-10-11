@@ -7,8 +7,6 @@ from shop.serializers import ProductSerializer
 from conf import fields
 from django.http import HttpResponse
 
-# from django.contrib.gis.geoip2 import GeoIP2
-
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter, )
@@ -17,24 +15,19 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     search_fields = list(fields.PRODUCT_FIELDS_API)
 
 
-def landing_page(request, category_slug=None):
-    category = None
+def landing_page(request):
     current_user = request.user.userprofile
-    products = Product.objects.all()
+    products = Product.objects
 
     # count of products in each category
     categories = dict()
-    for category_name in Category.objects.all():
-        categories[str(category_name)] = Product.objects.filter(category__name__exact=category_name).count()
+    for category in Category.objects.all():
+        categories[str(category)] = products.filter(category__name__exact=category).count()
 
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
     return render(
         request, 'product/landing.html', {
-            'category': category,
             'categories': categories.items(),
-            'products': products,
+            'products': products.all(),
             'current_user': current_user,
             'location': "Jaipur, Rajasthan"
         })
