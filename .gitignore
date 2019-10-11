@@ -36,4 +36,4 @@ __pycache__/
 db.sqlite3
 
 # Django
-media
+media/
