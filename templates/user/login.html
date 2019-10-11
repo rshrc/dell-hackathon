@@ -18,18 +18,19 @@
                 </div>
             </div>
             <div class="col-4 mx-auto my-auto">
-                <form>
+                <form method="post" action="{% url 'users:login' %}">
+                    {% csrf_token %}
+{#                    {{ form.as_p }}#}
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="someone@example.com">
+                        <input type="email" class="form-control" id="email" placeholder="someone@example.com" name="username">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="*********">
+                        <input type="password" class="form-control" id="password" placeholder="*********" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <a href="{% url 'users:register' %}" class="btn btn-secondary" role="button">Register</a>
+                    <input type="submit" value="Log In">
                 </form>
             </div>
         </div>

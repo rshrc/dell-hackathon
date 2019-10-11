@@ -102,7 +102,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTH_USER_MODEL = 'users.User'
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-LOGIN_REDIRECT_URL = 'shop:landing_page'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'shop:landing_page'
 
 # Redis
