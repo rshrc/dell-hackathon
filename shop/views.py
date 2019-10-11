@@ -37,7 +37,7 @@ def landing_page(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     return render(
-        request, 'shop/product/landing.html', {
+        request, 'product/landing.html', {
             'category': category,
             'categories': categories,
             'products': products,
@@ -51,7 +51,7 @@ def product_detail(request, id, slug):
     cart_product_form = CartAddProductForm()
     reviews = Review.objects.select_related().filter(product=product)
     return render(
-        request, 'shop/product/detail.html', {
+        request, 'product/detail.html', {
             'product': product,
             'cart_product_form': cart_product_form,
             'reviews': reviews
@@ -69,7 +69,7 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     return render(
-        request, 'shop/product/list.html', {
+        request, 'product/list.html', {
             'category': category,
             'categories': categories,
             'products': products,
@@ -83,7 +83,7 @@ def product_revisit(request, id, slug):
     r = Recommender()
     recommended_products = r.suggest_products_for([product], 4)
     return render(
-        request, 'shop/product/revisit.html', {
+        request, 'product/revisit.html', {
             'product': product,
             'cart_product_form': cart_product_form,
             'recommended_products': recommended_products
@@ -94,7 +94,7 @@ def service_detail(request, id):
     service = get_object_or_404(Service, id=id)
 
     cart_product_form = CartAddProductForm()
-    return render(request, 'shop/product/service_detail.html', {
+    return render(request, 'product/service_detail.html', {
         'service': service,
         'cart_product_form': cart_product_form
     })
@@ -103,7 +103,7 @@ def service_detail(request, id):
 def service_page(request):
     services = Service.objects.all()
 
-    return render(request, 'shop/product/services.html',
+    return render(request, 'product/services.html',
                   {'services': services})
 
 
@@ -115,16 +115,16 @@ def service_purchased(request):
         current_user.conversion_rate = 1
         request.user.userprofile.save()
     print("Current User : " + str(current_user.conversion_rate))
-    return render(request, 'shop/product/service_purchased.html', {})
+    return render(request, 'product/service_purchased.html', {})
 
 
 def support_page(request):
     supports = Support.objects.all()
 
-    return render(request, 'shop/product/support.html', {'supports': supports})
+    return render(request, 'product/support.html', {'supports': supports})
 
 
 def search_page(request):
     print('hello')
-    # return render(request, 'shop/product/search.html', {})
+    # return render(request, 'product/search.html', {})
     return HttpResponse('Search')

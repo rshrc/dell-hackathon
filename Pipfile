@@ -24,6 +24,7 @@ urllib3 = "*"
 redis = "*"
 celery = "*"
 django-rest-framework = "*"
+pandas = "*"
 
 [scripts]
 start = "python3 manage.py runserver"
