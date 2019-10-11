@@ -2,22 +2,27 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.utils import timezone
 from shop.models import Service, Product, Support
+from django.conf import settings
+from conf import choices
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class UserManager(BaseUserManager):
-    def _create_user(self, email, password, is_staff, is_superuser,
-                     **extra_fields):
+
+    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
         now = timezone.now()
         email = self.normalize_email(email)
-        user = self.model(email=email,
-                          is_staff=is_staff,
-                          is_active=True,
-                          is_superuser=is_superuser,
-                          last_login=now,
-                          date_joined=now,
-                          **extra_fields)
+        user = self.model(
+            email=email,
+            is_staff=is_staff,
+            is_active=True,
+            is_superuser=is_superuser,
+            last_login=now,
+            date_joined=now,
+            **extra_fields
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -56,19 +61,21 @@ class UserProfile(models.Model):
     gold_member = models.BooleanField(default=False)
     city = models.CharField(max_length=200, default="", blank=True)
     country = models.CharField(max_length=200, default="", blank=True)
-    product_list = models.ManyToManyField(Product,
-                                          related_name='product_lists',
-                                          blank=True)
-    service_list = models.ManyToManyField(Service,
-                                          related_name='service_lists',
-                                          blank=True)
-    support_list = models.ManyToManyField(Support,
-                                          related_name='support_lists',
-                                          blank=True)
+    product_list = models.ManyToManyField(Product, related_name='product_lists', blank=True)
+    service_list = models.ManyToManyField(Service, related_name='service_lists', blank=True)
+    support_list = models.ManyToManyField(Support, related_name='support_lists', blank=True)
     conversion_rate = models.IntegerField(default=0)
+    occupation = models.CharField(max_length=20, choices=choices.PROFILE_CHOICES, default='Normal User')
+    gender = models.CharField(max_length=6, choices=choices.GENDER_CHOICES, default='Male')
 
     def __str__(self):
         return self.user.email + " " + str(
-            self.birthday
-        ) + " " + self.city + ", " + self.country + " Gold Member: " + str(
-            self.gold_member)
+            self.birthday) + " " + self.city + ", " + self.country + " Gold Member: " + str(self.gold_member)
+
+
+class InAppSearchHistory(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.product)
