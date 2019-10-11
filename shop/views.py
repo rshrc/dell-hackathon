@@ -19,27 +19,21 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 
 def landing_page(request, category_slug=None):
     category = None
-    categories = Category.objects.all()
     current_user = request.user.userprofile
     products = Product.objects.all()
-    # todo return location
-    # geoIP = GeoIP2()
-    # ip = request.META.get('REMOTE_ADDR', None)
-    # if ip:
-    #     city = geoIP.city(ip)['city']
-    #     country = geoIP.country()['country']
-    # else:
-    #     city = 'Asansol'
-    #     country = 'West Bengal'
-    # location = {'city': city, 'country': country}
-    print("Products for Landing Page : " + str(products))
+
+    # count of products in each category
+    categories = dict()
+    for category_name in Category.objects.all():
+        categories[str(category_name)] = Product.objects.filter(category__name__exact=category_name).count()
+
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     return render(
         request, 'product/landing.html', {
             'category': category,
-            'categories': categories,
+            'categories': categories.items(),
             'products': products,
             'current_user': current_user,
             'location': "Jaipur, Rajasthan"
