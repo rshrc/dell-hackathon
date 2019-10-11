@@ -8,9 +8,6 @@ from conf import fields
 from django.http import HttpResponse
 
 
-# from django.contrib.gis.geoip2 import GeoIP2
-
-
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = Product.objects.all()
@@ -31,30 +28,22 @@ class ReviewDataAPI(generics.ListAPIView):
         return queryset
 
 
-def landing_page(request, category_slug=None):
-    category = None
-    categories = Category.objects.all()
+def landing_page(request):
     current_user = request.user.userprofile
-    products = Product.objects.all()
-    # todo return location
-    # geoIP = GeoIP2()
-    # ip = request.META.get('REMOTE_ADDR', None)
-    # if ip:
-    #     city = geoIP.city(ip)['city']
-    #     country = geoIP.country()['country']
-    # else:
-    #     city = 'Asansol'
-    #     country = 'West Bengal'
-    # location = {'city': city, 'country': country}
-    print("Products for Landing Page : " + str(products))
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
+    products = Product.objects
+
+    # count of products in each category
+    categories = dict()
+    for category in Category.objects.all():
+        categories[str(category)] = [
+            category.slug,
+            products.filter(category__name__exact=category).count(),
+        ]
+
     return render(
-        request, 'product/landing.html', {
-            'category': category,
-            'categories': categories,
-            'products': products,
+        request, 'product/landing_page.html', {
+            'categories': categories.items(),
+            'products': products.all(),
             'current_user': current_user,
             'location': "Jaipur, Rajasthan"
         })
@@ -72,22 +61,28 @@ def product_detail(request, id, slug):
         })
 
 
-def product_list(request, category_slug=None):
-    print("hello world")
-    category = None
-    categories = Category.objects.all()
+def category_list_page(request, category_slug):
     current_user = request.user.userprofile
-    products = request.user.userprofile.product_list.all()
-    print("Products of current User : " + str(products))
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
+    products = Product.objects
+
+    # count of products in each category
+    categories = dict()
+    for category in Category.objects.all():
+        categories[str(category)] = [
+            category.slug,
+            products.filter(category__name__exact=category).count(),
+        ]
+
+    category = get_object_or_404(Category, slug=category_slug)
+    products = products.filter(category__name__exact=category)
+
     return render(
-        request, 'product/list.html', {
+        request, 'product/category_list_page.html', {
             'category': category,
-            'categories': categories,
-            'products': products,
-            'current_user': current_user
+            'categories': categories.items(),
+            'products': products.all(),
+            'current_user': current_user,
+            'location': "Jaipur, Rajasthan"
         })
 
 
@@ -117,8 +112,7 @@ def service_detail(request, id):
 def service_page(request):
     services = Service.objects.all()
 
-    return render(request, 'product/services.html',
-                  {'services': services})
+    return render(request, 'product/services.html', {'services': services})
 
 
 def service_purchased(request):
