@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     {% if category %}{{ category.name }}{% else %}Shop{% endif %}
@@ -151,37 +152,53 @@
                                     <input type="checkbox">
                                     <span class="box"></span>
                                 </label>
-                                <span class="mt-2">9</span>
+                                <span>9</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <label class="label">XL Extra Large
                                     <input type="checkbox">
                                     <span class="box"></span>
                                 </label>
-                                <span class="mt-2">5</span>
+                                <span>5</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <label class="label">M Medium
                                     <input type="checkbox">
                                     <span class="box"></span>
                                 </label>
-                                <span class="mt-2">8</span>
+                                <span>8</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <label class="label">S Small
                                     <input type="checkbox">
                                     <span class="box"></span>
                                 </label>
-                                <span class="mt-2">5</span>
+                                <span>5</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <label class="label">XS Extra Small
                                     <input type="checkbox">
                                     <span class="box"></span>
                                 </label>
-                                <span class="mt-2">3</span>
+                                <span>3</span>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <h1>{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
+                    <div class="row">
+                        {% for product in products %} 
+                            <div class="col-auto px-2 py-2">
+                                <div class="card" style="width: 16.8rem; height: 25rem;">
+                                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
+                                    <div class="card-body">
+                                        <h3 class="card-title"><a href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a></h3>
+                                        <p class="card-text"><i class="fa fa-inr"> <span class="h4">{{ product.price }}</span></i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
