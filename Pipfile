@@ -32,6 +32,7 @@ make-migrations = "python3 manage.py makemigrations"
 migrate = "python3 manage.py migrate"
 setup-recommender = "python3 setup.py"
 create-user = "python3 manage.py createsuperuser"
+help = "python3 manage.py --help"
 
 [requires]
 python_version = "3.7"
