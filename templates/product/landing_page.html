@@ -35,13 +35,13 @@
                     </div> <!--col-->
                     <div class="col-6">
                         <form action="#" class="py-1">
-                            <div class="input-group w-100">
+                            <div class="input-group w-100" id="remote">
                                 <select class="custom-select" name="category_name">
                                     <option value="all">All</option>
                                     <option value="popular">Popular</option>
                                     <option value="latest">Latest</option>
                                 </select>
-                                <input type="text" class="form-control" style="width:50%;" placeholder="Search">
+                                <input type="text" class="form-control" id="search_input" style="width:50%;" placeholder="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-search"></i> Search
@@ -114,9 +114,9 @@
                 </div>
                 <div class="col-9">
                     <h1>All Products</h1>
-                    <div class="row">
+                    <div class="row" id="product-container">
                         {% for product in products %} 
-                            <div class="col-auto px-2 py-2">
+                            <div class="products col-auto px-2 py-2">
                                 <div class="card" style="width: 16.8rem; height: 25rem;">
                                     <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
                                     <div class="card-body">
