@@ -26,8 +26,8 @@ urlpatterns = [
     ),
     path(
         '<int:id>/<slug:slug>/',
-        views.product_detail,
-        name='product_detail',
+        views.product_detail_page,
+        name='product_detail_page',
     ),
     path(
         '<slug:category_slug>/',
