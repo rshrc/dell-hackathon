@@ -14,6 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'crispy_forms',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'shop.apps.ShopConfig',
@@ -93,6 +94,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+# Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -109,3 +111,6 @@ LOGOUT_REDIRECT_URL = '/'
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 1
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
