@@ -1,8 +1,8 @@
 $(document).ready(function() {
-  // fix size of search input
-  // $("#search_input").css("width", "100%");
-
-  // console.log("[debug] width = " + parseInt($(window).width() * 0.1));
+  // fix size of search bar
+  $(window).ready(function() {
+    $(".eac-square").css("width", "80%");
+  });
 
   //search
   let options = {
@@ -76,8 +76,3 @@ $(document).ready(function() {
     ` ${$("#price-slider").slider("getValue")[1]}`
   );
 });
-
-$(window).ready(()=>{
-  $(".eac-square").css("width", "80%");
-  console.log($(".eac-square"));
-})
