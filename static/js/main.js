@@ -1,7 +1,8 @@
 $(document).ready(function() {
-  // fix size of search input
-  $("#search_input").attr("width", parseInt($(window).width() * 0.5));
-  console.log("[debug] width = " + parseInt($(window).width() * 0.5));
+  // fix search bar
+  $(window).ready(function() {
+    $(".eac-square").css("width", "80%");
+  });
 
   //search
   let options = {
