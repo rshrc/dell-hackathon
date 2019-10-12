@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from shop.models import Category, Product, Service, Support, Review
 from cart.forms import CartAddProductForm
 from shop.recommender import Recommender
@@ -29,9 +29,8 @@ class ReviewDataAPI(generics.ListAPIView):
 
 
 def landing_page(request):
-    current_user = request.user.userprofile
+    
     products = Product.objects
-
     # count of products in each category
     categories = dict()
     for category in Category.objects.all():
@@ -44,7 +43,7 @@ def landing_page(request):
         request, 'product/landing_page.html', {
             'categories': categories.items(),
             'products': products.all(),
-            'current_user': current_user,
+            # 'current_user': current_user,
             'location': "Jaipur, Rajasthan"
         })
 

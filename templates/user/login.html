@@ -30,7 +30,8 @@
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" placeholder="*********" name="password">
                     </div>
-                    <input type="submit" value="Log In">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <a href="{% url 'users:register' %}" class="btn btn-secondary" role="button">Register</a>
                 </form>
             </div>
         </div>
