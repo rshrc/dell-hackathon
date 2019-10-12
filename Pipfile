@@ -15,6 +15,7 @@ redis = "*"
 celery = "*"
 django-rest-framework = "*"
 markdown = "*"
+django-crispy-forms = "*"
 
 [scripts]
 start = "python3 manage.py runserver"
