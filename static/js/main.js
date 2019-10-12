@@ -23,19 +23,23 @@ $(document).ready(function() {
   let productTitles = $(".products .card-title").toArray();
   productTitles = productTitles.map(product => product.innerText);
   let productPrices = $(".products .card-text").toArray();
+  let productImages = $(".products .card-img-top").toArray().map(product=>product.src);
+  console.log(productImages);
   productPrices = productPrices.map(product => product.innerText);
   let products = productTitles.map((title, index) => {
     return {
       title: title,
-      price: productPrices[index]
+      price: productPrices[index],
+      image: productImages[index]
     };
   });
+  let maxPrice = productPrices.reduce((accumulator, currentValue)=>Math.max(accumulator, currentValue));
   $("#price-slider")
     .slider({
       min: 0,
-      max: 1000,
+      max: maxPrice,
       step: 10,
-      value: [0, 1000]
+      value: [0, maxPrice]
     })
     .on("slide", function(obj) {
       $("#price-slider-min-value").text(` ${obj.value[0]}`);
@@ -44,19 +48,21 @@ $(document).ready(function() {
       filteredProducts = products.filter(
         product =>
           parseInt(product.price) >= obj.value[0] &&
-          parseInt(product.price) < obj.value[1]
+          parseInt(product.price) <= obj.value[1]
       );
       console.log(products);
       filteredProducts.forEach(product => {
         productsHtml += `
         
+        <div class="products col-auto px-2 py-2">
         <div class="card" style="width: 16.8rem; height: 25rem;">
-        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
+        <img src="${product.image}" class="card-img-top">
         <div class="card-body">
             <h3 class="card-title"><a href="{{ product.get_absolute_url_visit_1 }}">${product.title}</a></h3>
             <p class="card-text"><i class="fa fa-inr"> <span class="h4">${product.price}</span></i></p>
         </div>
-    </div>  
+        </div>  
+        </div>
         `;
       });
       // console.log(productsHtml);
