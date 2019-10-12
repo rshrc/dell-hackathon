@@ -24,13 +24,15 @@ $(document).ready(function() {
   productTitles = productTitles.map(product => product.innerText);
   let productPrices = $(".products .card-text").toArray();
   let productImages = $(".products .card-img-top").toArray().map(product=>product.src);
+  let productUrls = $(".products a").toArray().map(product=>product.href);
   console.log(productImages);
   productPrices = productPrices.map(product => product.innerText);
   let products = productTitles.map((title, index) => {
     return {
       title: title,
       price: productPrices[index],
-      image: productImages[index]
+      image: productImages[index],
+      url: productUrls[index]
     };
   });
   let maxPrice = productPrices.reduce((accumulator, currentValue)=>Math.max(accumulator, currentValue));
@@ -58,7 +60,7 @@ $(document).ready(function() {
         <div class="card" style="width: 16.8rem; height: 25rem;">
         <img src="${product.image}" class="card-img-top">
         <div class="card-body">
-            <h3 class="card-title"><a href="{{ product.get_absolute_url_visit_1 }}">${product.title}</a></h3>
+            <h3 class="card-title"><a href="${product.url}">${product.title}</a></h3>
             <p class="card-text"><i class="fa fa-inr"> <span class="h4">${product.price}</span></i></p>
         </div>
         </div>  
