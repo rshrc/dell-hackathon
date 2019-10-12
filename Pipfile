@@ -4,26 +4,17 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pycodestyle = "*"
 autopep8 = "*"
+pycodestyle = "*"
 
 [packages]
 django = "==2.*"
-certifi = "*"
-chardet = "*"
-django-countries = "*"
-django-crispy-forms = "*"
 pillow = "*"
-python-decouple = "*"
-pytz = "*"
 requests = "*"
-requests-oauthlib = "*"
-sqlparse = "*"
-stripe = "*"
-urllib3 = "*"
 redis = "*"
 celery = "*"
 django-rest-framework = "*"
+markdown = "*"
 
 [scripts]
 start = "python3 manage.py runserver"
