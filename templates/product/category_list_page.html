@@ -94,7 +94,7 @@
                         <ul class="pl-0 list-unstyled">
                             {% for category, info in categories %}
                                 <li>
-                                    <a href="{% url 'shop:product_list_by_category' category_slug=info.0 %}" class="d-flex py-2 text-gray justify-content-between">
+                                    <a href="{% url 'shop:category_list_page' category_slug=info.0 %}" class="d-flex py-2 text-gray justify-content-between">
                                         <span>{{ category }}</span><span>{{ info.1 }}</span>
                                     </a>
                                 </li>
