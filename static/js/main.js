@@ -1,6 +1,7 @@
 $(document).ready(function() {
   // fix size of search input
   $("#search_input").attr("width", parseInt($(window).width() * 0.5));
+  console.log("[debug] width = " + parseInt($(window).width() * 0.5));
 
   //search
   let options = {
@@ -14,7 +15,7 @@ $(document).ready(function() {
     theme: "square",
     placeholder: "Search"
   };
-  
+
   $("#search_input").easyAutocomplete(options);
 
   // initialize slider
