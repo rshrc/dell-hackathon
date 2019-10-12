@@ -61,6 +61,24 @@ def product_detail(request, id, slug):
         })
 
 
+def product_list(request, category_slug=None):
+    print("hello world")
+    category = None
+    categories = Category.objects.all()
+    current_user = request.user.userprofile
+    products = request.user.userprofile.product_list.all()
+    print("Products of current User : " + str(products))
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    return render(request,
+                  'product/list.html',
+                  {'category': category,
+                   'categories': categories,
+                   'products': products,
+                   'current_user': current_user})
+
+
 def category_list_page(request, category_slug):
     current_user = request.user.userprofile
     products = Product.objects
@@ -136,6 +154,7 @@ def search_page(request):
     print('hello')
     # return render(request, 'product/search.html', {})
     return HttpResponse('Search')
+
 
 def analytics(request, product_id):
     return render(request, 'analytics/index.html', {'product_id': product_id})

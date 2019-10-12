@@ -14,11 +14,11 @@ urlpatterns = [
         views.search_page,
         name='search_page',
     ),
-    # path(
-    #     'purchased/',
-    #     views.product_list,
-    #     name='product_list',
-    # ),
+    path(
+        'purchased/',
+        views.product_list,
+        name='product_list',
+    ),
     path(
         'analytics/<int:product_id>',
         views.analytics,
