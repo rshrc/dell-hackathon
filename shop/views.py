@@ -6,6 +6,7 @@ from rest_framework import generics, filters
 from shop.serializers import ProductSerializer, ReviewSerializier
 from conf import fields
 from django.http import HttpResponse
+from markdown import markdown
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
@@ -29,7 +30,7 @@ class ReviewDataAPI(generics.ListAPIView):
 
 
 def landing_page(request):
-    
+
     products = Product.objects
     # count of products in each category
     categories = dict()
@@ -56,6 +57,7 @@ def product_detail_page(request, id, slug):
     return render(
         request, 'product/product_detail_page.html', {
             'product': product,
+            'description': markdown(product.description),
             'cart_add_product_form': cart_add_product_form,
             'reviews': reviews
         })
