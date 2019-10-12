@@ -57,16 +57,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birthday = models.DateField(blank=True)
-    gold_member = models.BooleanField(default=False)
+    birthday = models.DateField(blank=True, null=True)
+    gold_member = models.BooleanField(default=False, blank=True)
     city = models.CharField(max_length=200, default="", blank=True)
     country = models.CharField(max_length=200, default="", blank=True)
     product_list = models.ManyToManyField(Product, related_name='product_lists', blank=True)
     service_list = models.ManyToManyField(Service, related_name='service_lists', blank=True)
     support_list = models.ManyToManyField(Support, related_name='support_lists', blank=True)
-    conversion_rate = models.IntegerField(default=0)
-    occupation = models.CharField(max_length=20, choices=choices.PROFILE_CHOICES, default='Normal User')
-    gender = models.CharField(max_length=6, choices=choices.GENDER_CHOICES, default='Male')
+    conversion_rate = models.IntegerField(default=0, blank=True)
+    occupation = models.CharField(max_length=20, choices=choices.PROFILE_CHOICES, default='Normal User', blank=True)
+    gender = models.CharField(max_length=6, choices=choices.GENDER_CHOICES, default='Male', blank=True)
 
     def __str__(self):
         return self.user.email + " " + str(

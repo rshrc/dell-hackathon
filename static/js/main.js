@@ -35,13 +35,13 @@ $(document).ready(function() {
       url: productUrls[index]
     };
   });
-  let maxPrice = productPrices.reduce((accumulator, currentValue)=>Math.max(accumulator, currentValue));
+  let maxPrice = productPrices.reduce((accumulator, currentValue)=>Math.max(accumulator, currentValue), 0);
   $("#price-slider")
     .slider({
       min: 0,
-      max: maxPrice,
+      max: parseInt(maxPrice),
       step: 10,
-      value: [0, maxPrice]
+      value: [0, parseInt(maxPrice)]
     })
     .on("slide", function(obj) {
       $("#price-slider-min-value").text(` ${obj.value[0]}`);

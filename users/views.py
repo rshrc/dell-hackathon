@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 
-from users.forms import SignUpForm
+from users.forms import SignUpForm, UserProfileForm
 
 
 class UserView(DetailView):
@@ -13,10 +13,22 @@ class UserView(DetailView):
 
 
 def register(request):
-    # if request.method == 'POST':
-    #     form = SignUpForm(request.POST)
-    #     if form.is_valid():
-    #         user = form.save()
+    if request.method == 'POST':
+          
+        form = SignUpForm(request.POST)
+        user_profile_form = UserProfileForm(request.POST)
+        print(form.is_valid())
+        print(form)
+        if form.is_valid() and user_profile_form.is_valid():
+            user = form.save()
+            user_profile_form.save(user)
+            password = form.cleaned_data.get('password1')
+            email = request.POST["email"]
+            user = authenticate(request, email=email, password=password)
+            login(request, user)
+            return redirect('/')
+        else:
+            print("Invalid form data")
     #         raw_password = form.cleaned_data.get('password1')
     #         user = authenticate(request,
     #                             email=user.email,
