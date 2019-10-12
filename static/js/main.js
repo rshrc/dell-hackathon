@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  // fix search bar
+  // fix size of search bar
   $(window).ready(function() {
     $(".eac-square").css("width", "80%");
   });
