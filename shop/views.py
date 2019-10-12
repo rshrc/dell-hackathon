@@ -48,14 +48,15 @@ def landing_page(request):
         })
 
 
-def product_detail(request, id, slug):
+def product_detail_page(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    cart_product_form = CartAddProductForm()
+    cart_add_product_form = CartAddProductForm()
     reviews = Review.objects.select_related().filter(product=product)
+
     return render(
-        request, 'product/detail.html', {
+        request, 'product/product_detail_page.html', {
             'product': product,
-            'cart_product_form': cart_product_form,
+            'cart_add_product_form': cart_add_product_form,
             'reviews': reviews
         })
 

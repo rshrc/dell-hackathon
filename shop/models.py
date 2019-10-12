@@ -45,19 +45,14 @@ class Product(models.Model):
         max_length=200,
         db_index=True,
     )
-    image = models.ImageField(
-        upload_to='products/%Y/%m/%d',
-        blank=True,
-    )
-    description = models.TextField(blank=True, )
-    price = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-    )
-    available = models.BooleanField(default=True, )
-    created = models.DateTimeField(auto_now_add=True, )
-    updated = models.DateTimeField(auto_now=True, )
-    conversion_rate = models.IntegerField(default=0, )
+    small_image = models.ImageField(upload_to='products/small/%Y/%m/%d', blank=True)
+    large_image = models.ImageField(upload_to='products/large/%Y/%m/%d', blank=True)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    available = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    conversion_rate = models.IntegerField(default=0)
 
     class Meta:
         ordering = (
