@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static crispy_forms_tags %}
 
 {% block title %}
-    Shop
+    Cart
 {% endblock title %}
 
 {% block header %}
@@ -85,38 +85,82 @@
 {% endblock header %}
 
 {% block content %}
-    <section>
+    {% comment %} <h1>Buying Again</h1>
+    <p class="text-right">
+        <a href="{% url "shop:product_list" %}" class="button light">Continue shopping</a>
+        <a href="{% url "orders:order_create" %}" class="button">
+            Checkout
+        </a>
+    </p> {% endcomment %}
+
+    <section class="mb-5">
         <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h1>Your Cart</h1>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-3">
-                    <div class="mb-4">
-                        <h4 class="mb-3">Shop by Categories</h4>
-                        <ul class="pl-0 list-unstyled">
-                            {% for category in categories %}
-                                <li>
-                                    <a href="{% url 'shop:category_list_page' category.1 %}" class="d-flex py-2 text-gray justify-content-between">
-                                        <span>{{ category.0 }}</span><span>{{ category.2 }}</span>
-                                    </a>
-                                </li>
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Remove</th>
+                                <th scope="col">Unit Price</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart %}
+                                {% with product=item.product %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ product.get_absolute_url }}">
+                                                <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}">
+                                            </a>
+                                        </td>
+                                        <td>{{ product.name }}</td>
+                                        <td>
+                                            <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                                {% csrf_token %}
+                                                {{ item.update_quantity_form.quantity|as_crispy_field }}
+                                                {{ item.update_quantity_form.update|as_crispy_field }}
+                                                <input type="submit" value="Update" class="btn btn-primary">
+                                            </form>
+                                        </td>
+                                        <td><a href="{% url "cart:cart_remove" product.id %}" class="btn btn-danger">Remove</a></td>
+                                        <td><i class="fa fa-inr"> <span class="text-monospace" style="font-size: 1.2rem;">{{ item.price }}</span></i></td>
+                                        <td><i class="fa fa-inr"> <span class="text-monospace" style="font-size: 1.2rem;">{{ item.total_price }}</span></i></td>
+                                    </tr>
+                                {% endwith %}
                             {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="mb-4">
-                        <h4 class="mb-4">Shop by Price</h4>
-                        <div class="col-auto">
-                            <input id="price-slider" type="text" class="span2"/> 
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <button class="btn btn-sm btn-primary" id="filter-btn">Filter</button>
-                            <span><i class="fa fa-inr"><span id="price-slider-min-value" class="font-weight-bold"></span></i> - <i class="fa fa-inr"><span id="price-slider-max-value" class="font-weight-bold"></span></i></span>
-                        </div>
+                            <tr class="total">
+                                <th scope="row">Total</th>
+                                <td colspan="4"></td>
+                                <td><i class="fa fa-inr"> <span class="text-monospace" style="font-size: 1.2rem;">{{ cart.get_total_price }}</span></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if recommended_products %}
+        <section class="mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>People who bought this also bought</h2>
                     </div>
                 </div>
-                <div class="col-9">
-                    <h1>All Products</h1>
-                    <div class="row" id="product-container">
-                        {% for product in products %} 
-                            <div class="products col-auto px-2 py-2">
+                <div class="row">
+                    <div class="col-12">
+                        {% for product in recommended_products %} 
+                            <div class="col-auto px-2 py-2">
                                 <div class="card" style="width: 16.8rem; height: 25rem;">
                                     <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
                                     <div class="card-body">
@@ -129,6 +173,15 @@
                     </div>
                 </div>
             </div>
+        </section>
+    {% endif %}
+
+    <section class="mb-5">
+        <div class="container">
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <a href="{% url "orders:order_create" %}" class="btn btn-success ml-2">Checkout</a>
+                <a href="{% url "shop:product_list" %}" class="btn btn-secondary mr-2">Continue shopping</a>
+            </div>
         </div>
     </section>
-{% endblock content %}
+{% endblock %}

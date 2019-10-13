@@ -70,7 +70,7 @@
                                 </div>
                             </div> <!--col-->
                             <div class="col-auto">
-                                <a href="{% url 'cart:cart_detail' %}">
+                                <a href="{% url 'cart:cart_detail_page' %}">
                                     <div class="text-dark">
                                         <i class="text-primary icon-sm fa fa-shopping-cart"></i> Cart
                                     </div>
@@ -121,6 +121,33 @@
         </div>
     </section>
 
+    {% if recommended_products %}
+        <section class="mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1>People who bought this also bought</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {% for product in recommended_products %} 
+                            <div class="col-auto px-2 py-2">
+                                <div class="card" style="width: 16.8rem; height: 25rem;">
+                                    <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
+                                    <div class="card-body">
+                                        <h3 class="card-title"><a href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a></h3>
+                                        <p class="card-text"><i class="fa fa-inr"> <span class="h4">{{ product.price }}</span></i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
     <section class="mb-5">
         <div class="container">
             <div class="row">
@@ -148,26 +175,4 @@
             </div>
         </div>
     </section>
-    {% if recommended_products %}
-            <div class="recommendations">
-                <h3>People who bought this also bought</h3>
-                {% for p in recommended_products %}
-                    <div class="item">
-                        <a href="{{ p.get_absolute_url }}">
-                            <img style="height: 150px; width: 150px" src="{% if p.image %}{{ p.image.url }}
-                        {% else %}
-                            {% static "img/no_image.png" %}
-                        {% endif %}">
-                        </a>
-                        <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>No Recommendations as of Now</p>
-        {% endif %}
-        {#        <a href="{% url "shop:service_page" %}" type="submit" class="btn btn-success">#}
-        {#            Product Recommendations#}
-        {#        </a>#}
-
 {% endblock content %}
