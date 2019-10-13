@@ -64,8 +64,6 @@ class Product(models.Model):
     class Meta:
         ordering = (
             'name',
-            'category',
-            'price',
         )
         index_together = (('id', 'slug'), )
 
