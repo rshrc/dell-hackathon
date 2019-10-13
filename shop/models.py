@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
+from conf.choices import CATEGORY_CHOICES
 
 
 class Category(models.Model):
@@ -12,6 +13,7 @@ class Category(models.Model):
     name = models.CharField(
         max_length=200,
         db_index=True,
+        choices=CATEGORY_CHOICES,
         help_text="Enter category name of product",
     )
     slug = models.SlugField(
@@ -36,6 +38,7 @@ class Product(models.Model):
         Category,
         related_name='products',
         on_delete=models.CASCADE,
+        choices=CATEGORY_CHOICES,
     )
     name = models.CharField(
         max_length=200,

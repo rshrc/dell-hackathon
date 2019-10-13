@@ -12,3 +12,15 @@ GENDER_CHOICES = (
     ('Female', 'Female'),
     ('Other', 'Other'),
 )
+
+CATEGORY_CHOICES = (
+    ('Laptops', 'Laptops'),
+    ('Desktops', 'Desktops'),
+    ('Tablets', 'Tablets'),
+    ('Gaming', 'Gaming'),
+    ('Workstation', 'Workstation'),
+    ('Servers & Storage', 'Servers & Storage'),
+    ('Networking', 'Networking'),
+    ('Monitors', 'Monitors'),
+    ('Electronics & Accessories', 'Electronics & Accessories'),
+)
