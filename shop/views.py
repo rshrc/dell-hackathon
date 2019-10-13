@@ -46,22 +46,12 @@ class ReviewDataAPI(generics.ListAPIView):
 
 
 def landing_page(request):
-
     products = Product.objects
-    # count of products in each category
-    categories = dict()
-    for category in Category.objects.all():
-        categories[str(category)] = [
-            category.slug,
-            products.filter(category__name__exact=category).count(),
-        ]
 
     return render(
         request, 'product/landing_page.html', {
-            'categories': categories.items(),
+            'categories': get_categories(),
             'products': products.all(),
-            # 'current_user': current_user,
-            'location': "Jaipur, Rajasthan"
         })
 
 
@@ -75,7 +65,8 @@ def product_detail_page(request, id, slug):
             'product': product,
             'description': markdown(product.description),
             'cart_add_product_form': cart_add_product_form,
-            'reviews': reviews
+            'reviews': reviews,
+            'categories': get_categories()
         })
 
 

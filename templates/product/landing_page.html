@@ -32,8 +32,8 @@
                         <div class="dropdown py-1">
                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Categories</button>
                             <div class="dropdown-menu">
-                                {% for category, info in categories %}
-                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category_slug=info.0 %}">{{ category }}</a>
+                                {% for category in categories %}
+                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category.1 %}">{{ category.0 }}</a>
                                 {% endfor %}
                             </div>
                         </div> 
@@ -92,10 +92,10 @@
                     <div class="mb-4">
                         <h4 class="mb-3">Shop by Categories</h4>
                         <ul class="pl-0 list-unstyled">
-                            {% for category, info in categories %}
+                            {% for category in categories %}
                                 <li>
-                                    <a href="{% url 'shop:category_list_page' category_slug=info.0 %}" class="d-flex py-2 text-gray justify-content-between">
-                                        <span>{{ category }}</span><span>{{ info.1 }}</span>
+                                    <a href="{% url 'shop:category_list_page' category.1 %}" class="d-flex py-2 text-gray justify-content-between">
+                                        <span>{{ category.0 }}</span><span>{{ category.2 }}</span>
                                     </a>
                                 </li>
                             {% endfor %}
