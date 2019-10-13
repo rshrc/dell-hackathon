@@ -106,11 +106,13 @@
                             <form action="{% url "cart:cart_add" product.id %}" method="post">
                                 {% csrf_token %}
                                 {{ cart_add_product_form|crispy }}
+                                
+                                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                             
                             </form>
+                            
                         </div>
-                        <div class="col-3 d-flex align-items-center">
-                            <button type="submit" class="btn btn-primary">Add to Cart</button>
-                        </div>
+                        
                         <div class="col-3 d-flex align-items-center">
                             <a href="{% url "orders:order_create" %}" class="btn btn-success">Checkout</a>                            
                         </div>
@@ -120,10 +122,10 @@
                             {{ description|safe }}
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <a href="{% url "shop:service_page" %}" class="btn btn-secondary mr-2">Service Products</a>
                         <a href="{% url "shop:support_page" %}" class="btn btn-secondary ml-2">Support Services</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -150,4 +152,26 @@
             </div>
         </div>
     </section>
+    {% if recommended_products %}
+            <div class="recommendations">
+                <h3>People who bought this also bought</h3>
+                {% for p in recommended_products %}
+                    <div class="item">
+                        <a href="{{ p.get_absolute_url }}">
+                            <img style="height: 150px; width: 150px" src="{% if p.image %}{{ p.image.url }}
+                        {% else %}
+                            {% static "img/no_image.png" %}
+                        {% endif %}">
+                        </a>
+                        <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No Recommendations as of Now</p>
+        {% endif %}
+        {#        <a href="{% url "shop:service_page" %}" type="submit" class="btn btn-success">#}
+        {#            Product Recommendations#}
+        {#        </a>#}
+
 {% endblock content %}
