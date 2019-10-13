@@ -46,16 +46,26 @@ $(document).ready(function() {
     .on("slide", function(obj) {
       $("#price-slider-min-value").text(` ${obj.value[0]}`);
       $("#price-slider-max-value").text(` ${obj.value[1]}`);
-      let productsHtml = "";
-      filteredProducts = products.filter(
-        product =>
-          parseInt(product.price) >= obj.value[0] &&
-          parseInt(product.price) <= obj.value[1]
-      );
-      console.log(products);
-      filteredProducts.forEach(product => {
-        productsHtml += `
-        
+    });
+  
+  $("")
+  $("#price-slider-min-value").text(
+    ` ${$("#price-slider").slider("getValue")[0]}`
+  );
+  $("#price-slider-max-value").text(
+    ` ${$("#price-slider").slider("getValue")[1]}`
+  );
+
+  $("#filter-btn").on("click", () => {
+    let slider = $("#price-slider").slider("getValue")
+    let minPrice = slider[0]
+    let maxPrice = slider[1]
+    let productsHtml = "";
+    filteredProducts = products.filter(product => parseInt(product.price) >= minPrice && parseInt(product.price) <= maxPrice);
+    console.log(products);
+    filteredProducts.forEach(product => {
+      productsHtml += 
+      `
         <div class="products col-auto px-2 py-2">
         <div class="card" style="width: 16.8rem; height: 25rem;">
         <img src="${product.image}" class="card-img-top">
@@ -65,16 +75,8 @@ $(document).ready(function() {
         </div>
         </div>  
         </div>
-        `;
-      });
-      // console.log(productsHtml);
-      $("#product-container").html(productsHtml);
+      `;
     });
-
-  $("#price-slider-min-value").text(
-    ` ${$("#price-slider").slider("getValue")[0]}`
-  );
-  $("#price-slider-max-value").text(
-    ` ${$("#price-slider").slider("getValue")[1]}`
-  );
+    $("#product-container").html(productsHtml);
+  })
 });

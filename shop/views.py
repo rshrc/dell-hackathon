@@ -156,7 +156,7 @@ def support_page(request):
 def search_page(request):
     # print('hello')
     
-    response = loads(get(f'http://127.0.0.1:8000/api/products?search={request.GET["search_input"]}').text)
+    response = loads(get(f'http://localhost:8000/api/products?search={request.GET["search_input"]}').text)
     for product in response:
         product["url"] = f'/{product["id"]}/{product["slug"]}'
         print(product["url"])
