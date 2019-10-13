@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    dob = models.DateField(blank=True, null=True)
+    birthday = models.DateField(blank=True, null=True)
     gold_member = models.BooleanField(default=False, blank=True)
     city = models.CharField(max_length=200, default="", blank=True)
     country = models.CharField(max_length=200, default="", blank=True)
