@@ -12,6 +12,11 @@
                 <a class="navbar-brand" href="{% url 'shop:landing_page' %}">Shop</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated and user.get_username == "admin@work.com"%}
+                            <li class="nav-item mr-4">
+                                <a href="/admin" class="nav-link p-0">Admin Panel</a>
+                            </li> 
+                        {% endif %}
                         <li class="nav-item">
                             <a href="#" class="nav-link p-0">Group 2</a>
                         </li>
