@@ -1,4 +1,5 @@
 PRODUCT_FIELDS = (
+    'id',
     'category',
     'name',
     'slug',

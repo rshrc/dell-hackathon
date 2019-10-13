@@ -7,7 +7,8 @@ from shop.serializers import ProductSerializer, ReviewSerializier
 from conf import fields
 from django.http import HttpResponse
 from markdown import markdown
-
+from requests import get
+from json import loads
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
@@ -153,7 +154,14 @@ def support_page(request):
 
 
 def search_page(request):
-    print('hello')
+    # print('hello')
+    
+    response = loads(get(f'http://127.0.0.1:8000/api/products?search={request.GET["search_input"]}').text)
+    for product in response:
+        product["url"] = f'/{product["id"]}/{product["slug"]}'
+        print(product["url"])
+    
+    # print(request.GET["search_input"])
     # return render(request, 'product/search.html', {})
     return HttpResponse('Search')
 

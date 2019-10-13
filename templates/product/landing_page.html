@@ -39,9 +39,9 @@
                         </div> 
                     </div> <!--col-->
                     <div class="col-6">
-                        <form action="#" class="py-1">
+                        <form method="GET" action="{% url 'shop:search_page' %}" class="py-1">
                             <div class="input-group w-100">
-                                <input type="text" id="search_input" class="form-control" size="50">
+                                <input type="text" id="search_input" name="search_input" class="form-control" size="50">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-search"></i> Search
