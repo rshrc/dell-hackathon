@@ -34,11 +34,13 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    '''
+    Details about the product
+    '''
     category = models.ForeignKey(
         Category,
         related_name='products',
         on_delete=models.CASCADE,
-        choices=CATEGORY_CHOICES,
     )
     name = models.CharField(
         max_length=200,
@@ -48,8 +50,10 @@ class Product(models.Model):
         max_length=200,
         db_index=True,
     )
-    small_image = models.ImageField(upload_to='products/small/%Y/%m/%d', blank=True)
-    large_image = models.ImageField(upload_to='products/large/%Y/%m/%d', blank=True)
+    small_image = models.ImageField(
+        upload_to='products/small/%Y/%m/%d', blank=True)
+    large_image = models.ImageField(
+        upload_to='products/large/%Y/%m/%d', blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
