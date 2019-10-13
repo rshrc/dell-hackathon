@@ -1,5 +1,3 @@
-from django.contrib.admin.models import User
-from shop.models import Category
 import os
 import django
 from django.template.defaultfilters import slugify
@@ -9,6 +7,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
 django.setup()
 
 # Models
+from users.models import User
+from shop.models import Category
 
 # create categories
 for category in CATEGORY_CHOICES:
