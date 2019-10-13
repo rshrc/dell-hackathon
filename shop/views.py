@@ -10,6 +10,21 @@ from markdown import markdown
 from requests import get
 from json import loads
 
+
+def get_categories():
+    '''
+    Returns details of each category in the database
+    '''
+    products = Product.objects
+    categories = list()
+
+    for category in Category.objects.all():
+        categories.append([category.name, category.slug, products.filter(
+            category__name__exact=category).count()])
+
+    return categories
+
+
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = Product.objects.all()
@@ -154,16 +169,13 @@ def support_page(request):
 
 
 def search_page(request):
-    # print('hello')
-    
-    response = loads(get(f'http://127.0.0.1:8000/api/products?search={request.GET["search_input"]}').text)
+    response = loads(get(
+        f'http://127.0.0.1:8000/api/products?search={request.GET["search_input"]}').text)
+
     for product in response:
         product["url"] = f'/{product["id"]}/{product["slug"]}'
-        print(product["url"])
-    
-    # print(request.GET["search_input"])
-    # return render(request, 'product/search.html', {})
-    return HttpResponse('Search')
+
+    return render(request, 'product/search_page.html', {'response': response, 'categories': get_categories()})
 
 
 def analytics(request, product_id):
