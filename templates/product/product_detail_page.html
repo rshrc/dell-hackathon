@@ -12,6 +12,11 @@
                 <a class="navbar-brand" href="{% url 'shop:landing_page' %}">Shop</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated and user.get_username == "admin@work.com"%}
+                            <li class="nav-item mr-4">
+                                <a href="/admin" class="nav-link p-0">Admin Panel</a>
+                            </li> 
+                        {% endif %}
                         <li class="nav-item">
                             <a href="#" class="nav-link p-0">Group 2</a>
                         </li>
@@ -27,9 +32,9 @@
                         <div class="dropdown py-1">
                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Categories</button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Laptop</a>
-                                <a class="dropdown-item" href="#">Desktop & All-in-One PC</a>
-                                <a class="dropdown-item" href="#">Gaming</a>
+                                {% for category, info in categories %}
+                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category_slug=info.0 %}">{{ category }}</a>
+                                {% endfor %}
                             </div>
                         </div> 
                     </div> <!--col-->
@@ -82,25 +87,7 @@
 {% block content %}
     {% comment %} <div class="product-detail">
 
-        <div class="row" style="margin-left: 25px;">
-            {# Proceed to Checkout directly if Buy #}
-            <form action="{% url "cart:cart_add" product.id %}" method="post">
-                {{ cart_product_form }}
-                {% csrf_token %}
-                <input type="submit" value="Add to Cart" class="btn btn-danger">
-            </form>
-            <a href="{% url "orders:order_create" %}" class="btn btn-success" style="margin-left: 10px">
-                Checkout
-            </a>
-        </div>
-        {{ product.description|linebreaks }}
-        {#        <a href="{% url "shop:service_page" %}" type="submit" class="btn btn-success">#}
-        {#            Service Products#}
-        {#        </a>#}
-        {#        <a href="{% url "shop:support_page" %}" type="submit" class="btn btn-success">#}
-        {#            Support Services#}
-        {#        </a>#}
-    <div>
+        
         <h1>Reviews</h1>
         {% for review in reviews %}
             <p>{{ review.user }}</p>
@@ -109,7 +96,7 @@
     </div>
     </div> {% endcomment %}
 
-    <section>
+    <section class="mb-4">
         <div class="container">
             <div class="row">
                 <div class="col-5">
@@ -144,6 +131,32 @@
                             {{ description|safe }}
                         </div>
                     </div>
+                    <div class="row">
+                        <a href="{% url "shop:service_page" %}" class="btn btn-secondary mr-2">Service Products</a>
+                        <a href="{% url "shop:support_page" %}" class="btn btn-secondary ml-2">Support Services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-4">
+        <div class="container">
+            <div class="row">
+                <h1>Reviews</h1>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <ul class="list-group list-group-flush">
+                        {% for review in reviews %}
+                            <li class="list-group-item">
+                                <div>
+                                    <h6 class="font-weight-bold font-italic">{{ review.user }}</h6>
+                                    <p>{{ review.review }}</p>
+                                </div>
+                            </li>  
+                         {% endfor %}              
+                    </ul>
                 </div>
             </div>
         </div>
