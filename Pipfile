@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 autopep8 = "*"
 pycodestyle = "*"
+faker = "*"
 
 [packages]
 django = "==2.*"
