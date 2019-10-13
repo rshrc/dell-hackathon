@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    {% if category %}Shop/{{ category.name }}{% else %}Shop{% endif %}
+    Shop/{{ category.name }}
 {% endblock title %}
 
 {% block header %}
@@ -32,8 +32,8 @@
                         <div class="dropdown py-1">
                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Categories</button>
                             <div class="dropdown-menu">
-                                {% for category, info in categories %}
-                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category_slug=info.0 %}">{{ category }}</a>
+                                {% for category in categories %}
+                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category.1 %}">{{ category.0 }}</a>
                                 {% endfor %}
                             </div>
                         </div> 
@@ -104,9 +104,9 @@
                     <h1>{{ category }}</h1>
                     <div class="row">
                         {% for product in products %} 
-                            <div class="col-auto px-2 py-2">
+                            <div class="products col-auto px-2 py-2">
                                 <div class="card" style="width: 16.8rem; height: 25rem;">
-                                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
+                                    <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
                                     <div class="card-body">
                                         <h3 class="card-title"><a href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a></h3>
                                         <p class="card-text"><i class="fa fa-inr"> <span class="h4">{{ product.price }}</span></i></p>

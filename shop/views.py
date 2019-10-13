@@ -89,27 +89,14 @@ def product_list(request, category_slug=None):
 
 
 def category_list_page(request, category_slug):
-    current_user = request.user.userprofile
-    products = Product.objects
-
-    # count of products in each category
-    categories = dict()
-    for category in Category.objects.all():
-        categories[str(category)] = [
-            category.slug,
-            products.filter(category__name__exact=category).count(),
-        ]
-
     category = get_object_or_404(Category, slug=category_slug)
-    products = products.filter(category__name__exact=category)
+    products = Product.objects.filter(category__name__exact=category)
 
     return render(
         request, 'product/category_list_page.html', {
             'category': category,
-            'categories': categories.items(),
-            'products': products.all(),
-            'current_user': current_user,
-            'location': "Jaipur, Rajasthan"
+            'categories': get_categories(),
+            'products': products.all()
         })
 
 
