@@ -26,6 +26,7 @@ migrate = "python3 manage.py migrate"
 setup-recommender = "python3 setup.py"
 create-user = "python3 manage.py createsuperuser"
 help = "python3 manage.py --help"
+populate = "python3 populate.py"
 
 [requires]
 python_version = "3.7"

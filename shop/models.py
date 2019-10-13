@@ -10,19 +10,11 @@ class Category(models.Model):
     '''
     Details about the category of a product
     '''
-    name = models.CharField(
-        max_length=200,
-        db_index=True,
-        choices=CATEGORY_CHOICES,
-        help_text="Enter category name of product",
-    )
-    slug = models.SlugField(
-        max_length=200,
-        unique=True,
-    )
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, unique=True)
 
     class Meta:
-        ordering = ('name', )
+        ordering = (['name'])
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
