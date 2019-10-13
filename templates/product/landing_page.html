@@ -32,9 +32,9 @@
                         <div class="dropdown py-1">
                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Categories</button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Laptop</a>
-                                <a class="dropdown-item" href="#">Desktop & All-in-One PC</a>
-                                <a class="dropdown-item" href="#">Gaming</a>
+                                {% for category, info in categories %}
+                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category_slug=info.0 %}">{{ category }}</a>
+                                {% endfor %}
                             </div>
                         </div> 
                     </div> <!--col-->
