@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from shop.models import Service, Product, Support
 from conf import choices
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
