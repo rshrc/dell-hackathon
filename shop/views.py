@@ -153,6 +153,7 @@ def search_page(request):
         f'http://127.0.0.1:8000/api/products?search={request.GET["search_input"]}').text)
 
     for product in response:
+        print(product)
         product["url"] = f'/{product["id"]}/{product["slug"]}'
 
     return render(request, 'product/search_page.html', {'response': response, 'categories': get_categories()})

@@ -109,7 +109,7 @@
                             {% for product in response %} 
                                 <div class="products col-auto px-2 py-2">
                                     <div class="card" style="width: 16.8rem; height: 25rem;">
-                                        <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
+                                        <img src="{{ product.small_image }}" class="card-img-top">
                                         <div class="card-body">
                                             <h3 class="card-title"><a href="{{ product.url }}">{{ product.name }}</a></h3>
                                             <p class="card-text"><i class="fa fa-inr"> <span class="h4">{{ product.price }}</span></i></p>
