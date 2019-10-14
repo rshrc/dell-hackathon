@@ -3,21 +3,39 @@ from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 
 from users.forms import SignUpForm, UserProfileForm
+<<<<<<< HEAD
 from users.models import UserProfile 
 from django.http import HttpResponse
+=======
+from rest_framework import generics
+from users.serializers import BrowsingHistorySerializer
+from users.models import InAppSearchHistory
+>>>>>>> dev
 
 for profile in UserProfile.objects.filter(user_id=2):
     print(profile.chosen_product)
 class UserView(DetailView):
-    template_name = 'profile.html'
+    template_name = 'user/profile.html'
 
     def get_object(self):
         return self.request.user
 
 
+class StoreBrowsingHistoryAPIView(generics.CreateAPIView):
+    serializer_class = BrowsingHistorySerializer
+
+    def get_queryset(self):
+        product_id = self.kwargs['product_id']
+        user_id = self.kwargs['user_id']
+        queryset = InAppSearchHistory.objects.create(user_id, product_id)
+        print(queryset.objects.all())
+
+        return queryset
+
+
 def register(request):
     if request.method == 'POST':
-          
+
         form = SignUpForm(request.POST)
         user_profile_form = UserProfileForm(request.POST)
         print(form.is_valid())

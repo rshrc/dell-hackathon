@@ -34,8 +34,18 @@ function drawRatingsDistribution(data) {
         data: {
             labels: labels,
             datasets: [{
-                data: pieOutput
-            }]
+                data: pieOutput,
+                backgroundColor: [
+                    // rgba(255,193,37, 35),
+                    '#ff6384',
+                    '#36a2eb',
+                    '#cc65fe',
+                    '#ffce56',
+                    '#ffc125',
+                ],
+                borderColor: '#ffffff'
+            }],
+            
         },
         options: {
             responsive: false,

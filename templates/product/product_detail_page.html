@@ -89,7 +89,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-5">
-                    <img class="img-fluid" src="{% if product.large_image %}{{ product.large_image.url }}{% else %}{% static "img/no_image_512x512.png" %}{% endif %}">
+                    <img class="img-fluid" width="512" height="512" src="{% if product.large_image %}{{ product.large_image.url }}{% else %}{% static "img/no_image_512x512.png" %}{% endif %}">
                 </div>
                 <div class="col-6 offset-1">
                     <div class="row">

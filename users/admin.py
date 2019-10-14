@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from users.models import User, UserProfile
+from users.models import User, UserProfile, InAppSearchHistory
+
+
+@admin.register(InAppSearchHistory)
+class InAppSearchAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product')
 
 
 class UserAdmin(BaseUserAdmin):
@@ -20,14 +25,14 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
     add_fieldsets = ((None, {
-        'classes': ('wide', ),
+        'classes': ('wide',),
         'fields': ('email', 'password1', 'password2')
-    }), )
+    }),)
 
     list_display = ('email', 'name', 'is_staff', 'last_login')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
-    search_fields = ('email', )
-    ordering = ('email', )
+    search_fields = ('email',)
+    ordering = ('email',)
     filter_horizontal = (
         'groups',
         'user_permissions',
