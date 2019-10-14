@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load static crispy_forms_tags %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     Cart
@@ -12,7 +13,7 @@
                 <a class="navbar-brand" href="{% url 'shop:landing_page' %}">Shop</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
-                        {% if user.is_authenticated and user.get_username == "admin@work.com"%}
+                        {% if user.is_authenticated and user.get_username == "admin@work.com" %}
                             <li class="nav-item mr-4">
                                 <a href="/admin" class="nav-link p-0">Admin Panel</a>
                             </li>
@@ -30,10 +31,13 @@
                 <div class="row align-items-center">
                     <div class="col-3">
                         <div class="dropdown py-1">
-                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Categories</button>
+                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i
+                                    class="fa fa-bars"></i> Categories
+                            </button>
                             <div class="dropdown-menu">
                                 {% for category in categories %}
-                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category.1 %}">{{ category.0 }}</a>
+                                    <a class="dropdown-item"
+                                       href="{% url 'shop:category_list_page' category.1 %}">{{ category.0 }}</a>
                                 {% endfor %}
                             </div>
                         </div>
@@ -56,7 +60,8 @@
                                 <div class="dropdown">
                                     <button id="dropdownMenuLink" class="btn btn-link p-0" data-toggle="dropdown">
                                         <div class="text-dark">
-                                            <i class="text-primary icon-sm fa fa-user"></i> Account <i class="fa fa-caret-down"></i>
+                                            <i class="text-primary icon-sm fa fa-user"></i> Account <i
+                                                class="fa fa-caret-down"></i>
                                         </div>
                                     </button>
                                     <div class="dropdown-menu">
@@ -96,44 +101,52 @@
                 <div class="col-12">
                     <table class="table table-bordered">
                         <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Image</th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Remove</th>
-                                <th scope="col">Unit Price</th>
-                                <th scope="col">Price</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Remove</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Price</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {% for item in cart %}
-                                {% with product=item.product %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ product.get_absolute_url }}">
-                                                <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}">
-                                            </a>
-                                        </td>
-                                        <td>{{ product.name }}</td>
-                                        <td>
-                                            <form action="{% url "cart:cart_add" product.id %}" method="post">
-                                                {% csrf_token %}
-                                                {{ item.update_quantity_form.quantity|as_crispy_field }}
-                                                {{ item.update_quantity_form.update|as_crispy_field }}
-                                                <input type="submit" value="Update" class="btn btn-primary">
-                                            </form>
-                                        </td>
-                                        <td><a href="{% url "cart:cart_remove" product.id %}" class="btn btn-danger">Remove</a></td>
-                                        <td><i class="fa fa-inr"> <span class="text-monospace" style="font-size: 1.2rem;">{{ item.price }}</span></i></td>
-                                        <td><i class="fa fa-inr"> <span class="text-monospace" style="font-size: 1.2rem;">{{ item.total_price }}</span></i></td>
-                                    </tr>
-                                {% endwith %}
-                            {% endfor %}
-                            <tr class="total">
-                                <th scope="row">Total</th>
-                                <td colspan="4"></td>
-                                <td><i class="fa fa-inr"> <span class="text-monospace" style="font-size: 1.2rem;">{{ cart.get_total_price }}</span></i></td>
-                            </tr>
+                        {% for item in cart %}
+                            {% with product=item.product %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ product.get_absolute_url }}">
+                                            <img class="img-fluid" src="
+                                                    {% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}">
+                                        </a>
+                                    </td>
+                                    <td>{{ product.name }}</td>
+                                    <td>
+                                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                            {% csrf_token %}
+                                            {{ item.update_quantity_form.quantity|as_crispy_field }}
+                                            {{ item.update_quantity_form.update|as_crispy_field }}
+                                            <input type="submit" value="Update" class="btn btn-primary">
+                                        </form>
+                                    </td>
+                                    <td><a href="{% url "cart:cart_remove" product.id %}"
+                                           class="btn btn-danger">Remove</a></td>
+                                    <td><i class="fa fa-inr"> <span class="text-monospace"
+                                                                    style="font-size: 1.2rem;">{{ item.price }}</span></i>
+                                    </td>
+                                    <td><i class="fa fa-inr"> <span class="text-monospace"
+                                                                    style="font-size: 1.2rem;">{{ item.total_price }}</span></i>
+                                    </td>
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                        <tr class="total">
+                            <th scope="row">Total</th>
+                            <td colspan="4"></td>
+                            <td><i class="fa fa-inr"> <span class="text-monospace"
+                                                            style="font-size: 1.2rem;">{{ cart.get_total_price }}</span></i>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -141,7 +154,7 @@
         </div>
     </section>
 
-     {% if recommended_products %}
+    {% if recommended_products %}
         <div class="container mb-5">
             <div class="row">
                 <div class="col-12">
@@ -152,7 +165,8 @@
                 {% for product in recommended_products %}
                     <div class="col-auto px-2 py-2">
                         <div class="card" style="width: 12rem; height: 12rem;">
-                            <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}"
+                            <img src="
+                                    {% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}"
                                  class="card-img-top">
                             <div class="card-body">
                                 <h3 class="card-title"><a

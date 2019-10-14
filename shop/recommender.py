@@ -15,6 +15,7 @@ class Recommender(object):
     receives an ID of a Product object and builds the Redis key for the sorted set where
     related products are stored, which looks like product:[id]:purchased_with .
     """
+
     def get_product_key(self, id):
         return 'product:{}:purchased with'.format(id)
 

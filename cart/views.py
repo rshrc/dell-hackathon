@@ -42,6 +42,7 @@ def cart_detail_page(request):
     recommended_products = r.suggest_products_for(cart_products, max_results=4)
 
     return render(request, 'cart/cart_detail_page.html', {
+        'products': cart_products,
         'cart': cart,
         'recommended_products': recommended_products,
         'categories': get_categories()
