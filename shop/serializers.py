@@ -9,7 +9,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = fields.PRODUCT_FIELDS
 
 
-class ReviewSerializier(serializers.ModelSerializer):
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = fields.REVIEW_FIELDS
+

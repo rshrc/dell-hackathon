@@ -3,7 +3,7 @@ from shop.models import Category, Product, Service, Support, Review
 from cart.forms import CartAddProductForm
 from shop.recommender import Recommender
 from rest_framework import generics, filters
-from shop.serializers import ProductSerializer, ReviewSerializier
+from shop.serializers import ProductSerializer, ReviewSerializer
 from conf import fields
 from django.http import HttpResponse
 from markdown import markdown
@@ -37,7 +37,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 
 class ReviewDataAPI(generics.ListAPIView):
     # queryset = Review.objects.filter(product__name=product_name)
-    serializer_class = ReviewSerializier
+    serializer_class = ReviewSerializer
 
     def get_queryset(self):
         product_id = self.kwargs['pk']

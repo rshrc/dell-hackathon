@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 
-from users.views import UserView, register
+from users.views import UserView, register, StoreBrowsingHistoryAPIView
 
 app_name = 'users'
 
@@ -15,4 +15,6 @@ urlpatterns = [
          name='logout'),
     path('profile/', login_required(UserView.as_view()), name='profile'),
     path('register/', register, name='register'),
+    path('search_store/<int:user_id>/<int:product_id>', StoreBrowsingHistoryAPIView.as_view(),
+         name='store_browsing_history'),
 ]
