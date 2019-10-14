@@ -59,14 +59,16 @@ def product_detail_page(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     cart_add_product_form = CartAddProductForm()
     reviews = Review.objects.select_related().filter(product=product)
-
+    r = Recommender()
+    recommended_products = r.suggest_products_for([product], 4)
     return render(
         request, 'product/product_detail_page.html', {
             'product': product,
             'description': markdown(product.description),
             'cart_add_product_form': cart_add_product_form,
             'reviews': reviews,
-            'categories': get_categories()
+            'categories': get_categories(),
+            'recommended_products': recommended_products
         })
 
 
