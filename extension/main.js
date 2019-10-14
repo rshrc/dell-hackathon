@@ -1,0 +1,1 @@
+// fetch("http://localhost:8000/accounts/log_searched/?id=2&product_slug=\"laptop\"")

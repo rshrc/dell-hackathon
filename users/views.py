@@ -3,8 +3,11 @@ from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 
 from users.forms import SignUpForm, UserProfileForm
+from users.models import UserProfile 
+from django.http import HttpResponse
 
-
+for profile in UserProfile.objects.filter(user_id=2):
+    print(profile.chosen_product)
 class UserView(DetailView):
     template_name = 'profile.html'
 
@@ -41,3 +44,16 @@ def register(request):
     # else:
     #     form = SignUpForm()
     return render(request, 'user/register.html')
+def log_searched(request):
+    #Make it post
+    user_id = int(request.GET["id"])
+    product_slug = request.GET["product_slug"]
+    
+    # profiles = []
+    
+    profiles = UserProfile.objects.filter(user_id=user_id)
+    # print(profiles)
+    for profile in profiles:
+        profile.chosen_product = product_slug
+        profile.save()
+    return HttpResponse("Success")

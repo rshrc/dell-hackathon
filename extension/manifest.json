@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "Pricero",
+    "version": "1.0",
+    "description": "Get prices",
+    "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/beastify",
+    "icons": {
+      "48": "icons/beasts-48.png"
+    },
+  
+    "permissions": [
+      "activeTab"
+    ],
+    "browser_action": {
+        "default_title": "Pricero",
+        "default_popup": "index.html"
+    }
+}

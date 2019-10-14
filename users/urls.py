@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 
-from users.views import UserView, register
+from users.views import UserView, register, log_searched
 
 app_name = 'users'
 
@@ -15,4 +15,5 @@ urlpatterns = [
          name='logout'),
     path('profile/', login_required(UserView.as_view()), name='profile'),
     path('register/', register, name='register'),
+    path('log_searched/', log_searched, name='log_searched')
 ]

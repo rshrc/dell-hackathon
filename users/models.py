@@ -67,7 +67,7 @@ class UserProfile(models.Model):
     conversion_rate = models.IntegerField(default=0, blank=True)
     occupation = models.CharField(max_length=20, choices=choices.PROFILE_CHOICES, default='Normal User', blank=True)
     gender = models.CharField(max_length=6, choices=choices.GENDER_CHOICES, default='Male', blank=True)
-
+    chosen_product = models.CharField(max_length = 10,default="none", blank = True)
     def __str__(self):
         return self.user.email + " " + str(
             self.birthday) + " " + self.city + ", " + self.country + " Gold Member: " + str(self.gold_member)
