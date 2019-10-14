@@ -15,12 +15,12 @@
                         {% if user.is_authenticated and user.get_username == "admin@work.com"%}
                             <li class="nav-item mr-4">
                                 <a href="/admin" class="nav-link p-0">Admin Panel</a>
-                            </li> 
+                            </li>
                         {% endif %}
                         <li class="nav-item">
                             <a href="#" class="nav-link p-0">Group 2</a>
                         </li>
-                    </ul> 
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -36,7 +36,7 @@
                                     <a class="dropdown-item" href="{% url 'shop:category_list_page' category.1 %}">{{ category.0 }}</a>
                                 {% endfor %}
                             </div>
-                        </div> 
+                        </div>
                     </div> <!--col-->
                     <div class="col-6">
                         <form method="GET" action="{% url 'shop:search_page' %}" class="py-1">
@@ -141,29 +141,30 @@
         </div>
     </section>
 
-    {% if recommended_products %}
-        <section class="mb-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h2>People who bought this also bought</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    {% for product in recommended_products %} 
-                        <div class="col-auto px-2 py-2">
-                            <div class="card" style="width: 16.8rem; height: 25rem;">
-                                <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
-                                <div class="card-body">
-                                    <h3 class="card-title"><a href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a></h3>
-                                    <p class="card-text"><i class="fa fa-inr"> <span class="h4">{{ product.price }}</span></i></p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+     {% if recommended_products %}
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-12">
+                    <h1>People who bought this also bought</h1>
                 </div>
             </div>
-        </section>
+            <div class="row">
+                {% for product in recommended_products %}
+                    <div class="col-auto px-2 py-2">
+                        <div class="card" style="width: 12rem; height: 12rem;">
+                            <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}"
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h3 class="card-title"><a
+                                        href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a></h3>
+                                <p class="card-text"><i class="fa fa-inr"> <span
+                                        class="h4">{{ product.price }}</span></i></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     {% endif %}
 
     <section class="mb-5">

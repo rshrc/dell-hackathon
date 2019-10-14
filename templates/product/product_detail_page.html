@@ -12,15 +12,15 @@
                 <a class="navbar-brand" href="{% url 'shop:landing_page' %}">Shop</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
-                        {% if user.is_authenticated and user.get_username == "admin@work.com"%}
+                        {% if user.is_authenticated and user.get_username == "admin@work.com" %}
                             <li class="nav-item mr-4">
                                 <a href="/admin" class="nav-link p-0">Admin Panel</a>
-                            </li> 
+                            </li>
                         {% endif %}
                         <li class="nav-item">
                             <a href="#" class="nav-link p-0">Group 2</a>
                         </li>
-                    </ul> 
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -30,13 +30,16 @@
                 <div class="row align-items-center">
                     <div class="col-3">
                         <div class="dropdown py-1">
-                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Categories</button>
+                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i
+                                    class="fa fa-bars"></i> Categories
+                            </button>
                             <div class="dropdown-menu">
                                 {% for category in categories %}
-                                    <a class="dropdown-item" href="{% url 'shop:category_list_page' category.1 %}">{{ category.0 }}</a>
+                                    <a class="dropdown-item"
+                                       href="{% url 'shop:category_list_page' category.1 %}">{{ category.0 }}</a>
                                 {% endfor %}
                             </div>
-                        </div> 
+                        </div>
                     </div> <!--col-->
                     <div class="col-6">
                         <form action="#" class="py-1">
@@ -56,7 +59,8 @@
                                 <div class="dropdown">
                                     <button id="dropdownMenuLink" class="btn btn-link p-0" data-toggle="dropdown">
                                         <div class="text-dark">
-                                            <i class="text-primary icon-sm fa fa-user"></i> Account <i class="fa fa-caret-down"></i>
+                                            <i class="text-primary icon-sm fa fa-user"></i> Account <i
+                                                class="fa fa-caret-down"></i>
                                         </div>
                                     </button>
                                     <div class="dropdown-menu">
@@ -64,7 +68,7 @@
                                             <a class="dropdown-item" href="#">Profile</a>
                                             <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
                                         {% else %}
-                                            <a class="dropdown-item" href="{%url 'users:login'%}">Login</a>
+                                            <a class="dropdown-item" href="{% url 'users:login' %}">Login</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -89,7 +93,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-5">
-                    <img class="img-fluid" width="512" height="512" src="{% if product.large_image %}{{ product.large_image.url }}{% else %}{% static "img/no_image_512x512.png" %}{% endif %}">
+                    <img class="img-fluid" width="512" height="512" src="
+                            {% if product.large_image %}{{ product.large_image.url }}{% else %}{% static "img/no_image_512x512.png" %}{% endif %}">
                 </div>
                 <div class="col-6 offset-1">
                     <div class="row">
@@ -99,16 +104,17 @@
                         <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
                     </div>
                     <div class="row mt-4">
-                        <p class="price"><i class="fa fa-inr" style="font-size: 1.5rem"> <span style="font-size: 2rem;">{{ product.price }}</span></i></p>
+                        <p class="price"><i class="fa fa-inr" style="font-size: 1.5rem"> <span
+                                style="font-size: 2rem;">{{ product.price }}</span></i></p>
                     </div>
                     <div class="row mt-4">
                         <form action="{% url "cart:cart_add" product.id %}" method="post">
                             {% csrf_token %}
                             {{ cart_add_product_form|crispy }}
-                            <div class="row px-3">    
+                            <div class="row px-3">
                                 <button type="submit" class="btn btn-primary mr-2">Add to Cart</button>
                                 <a href="{% url "orders:order_create" %}" class="btn btn-success ml-2">Checkout</a>
-                            </div>                            
+                            </div>
                         </form>
                     </div>
                     <div class="row mt-4">
@@ -122,57 +128,61 @@
     </section>
 
     {% if recommended_products %}
-        <section class="mb-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1>People who bought this also bought</h1>
-                    </div>
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-12">
+                    <h1>People who bought this also bought</h1>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        {% for product in recommended_products %} 
-                            <div class="col-auto px-2 py-2">
-                                <div class="card" style="width: 16.8rem; height: 25rem;">
-                                    <img src="{% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}" class="card-img-top">
-                                    <div class="card-body">
-                                        <h3 class="card-title"><a href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a></h3>
-                                        <p class="card-text"><i class="fa fa-inr"> <span class="h4">{{ product.price }}</span></i></p>
-                                    </div>
-                                </div>
+            </div>
+            <div class="row">
+                {% for product in recommended_products %}
+                    <div class="col-auto px-2 py-2">
+                        <div class="card" style="width: 12rem; height: 12rem;">
+                            <img src="
+                                    {% if product.small_image %}{{ product.small_image.url }}{% else %}{% static "img/no_image_256x256.png" %}{% endif %}"
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h3 class="card-title"><a
+                                        href="{{ product.get_absolute_url_visit_1 }}">{{ product.name.title }}</a></h3>
+                                <p class="card-text"><i class="fa fa-inr"> <span
+                                        class="h4">{{ product.price }}</span></i></p>
                             </div>
-                        {% endfor %}
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
-    {% endif %}
-
-    <section class="mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1>Reviews</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    {% if not reviews %}
-                        <h5>No Reviews</h5>
-                    {% else %}
-                        <ul class="list-group list-group-flush">
-                            {% for review in reviews %}
-                                <li class="list-group-item">
-                                    <div>
-                                        <h6 class="font-weight-bold font-italic">{{ review.user }}</h6>
-                                        <p>{{ review.review }}</p>
-                                    </div>
-                                </li>  
-                            {% endfor %}              
-                        </ul>
-                    {% endif %}
-                </div>
+                {% endfor %}
             </div>
         </div>
-    </section>
+    {% endif %}
+
+    <br><br>
+    <br>
+
+
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Reviews</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% if not reviews %}
+                    <h5>No Reviews</h5>
+                {% else %}
+                    <ul class="list-group list-group-flush">
+                        {% for review in reviews %}
+                            <li class="list-group-item">
+                                <div>
+                                    <h6 class="font-weight-bold font-italic">{{ review.user }}</h6>
+                                    <p>{{ review.review }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock content %}
