@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from markdown import markdown
 from requests import get
 from json import loads
+from users.models import UserProfile
 
 
 def get_categories():
@@ -47,11 +48,41 @@ class ReviewDataAPI(generics.ListAPIView):
 
 def landing_page(request):
     products = Product.objects
-
+    recommended_products = []
+    if not request.user.is_authenticated:
+        cheap_laptop_ids = [1, 2, 3]
+        cheap_mobile_ids = [3, 4, 5]
+        expensive_laptop_ids = [4, 5, 6]
+        expensive_mobile_ids = [9, 10, 11]
+        product_slug = UserProfile.objects.get(id=1).chosen_product
+        res = []
+        
+        slug_filter_map = {
+            'inspiron': cheap_laptop_ids,
+            'alienware': expensive_laptop_ids,
+        }
+        if(product_slug not in slug_filter_map.keys()):
+            res = [int(i) for i in product_slug.split() if i.isdigit()] 
+            res = res[0]
+            res = "".join(str(res))
+        if(len(res)>0):
+                if(product_slug.find("over")!=-1):
+                    recommended_products = list(Product.objects.filter(price__gt=int(res)))
+                    
+                else:
+                    recommended_products = list(Product.objects.filter(price__lt=int(res)))
+        elif(product_slug in slug_filter_map.keys()):
+            recommended_products = list(Product.objects.filter(id__in=slug_filter_map[product_slug]))
+        print(recommended_products)
+        
+        # print(Product.objects.filter(price__gt=10000))
+        
+        #     print(product)        
     return render(
         request, 'product/landing_page.html', {
             'categories': get_categories(),
             'products': products.all(),
+            'recommended_products': recommended_products
         })
 
 
