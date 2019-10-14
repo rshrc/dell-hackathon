@@ -9,6 +9,7 @@ class InAppSearchAdmin(admin.ModelAdmin):
     list_display = ('user', 'product')
     list_filter = ('user', 'product')
 
+
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {
