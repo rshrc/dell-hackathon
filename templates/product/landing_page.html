@@ -128,8 +128,21 @@
                         {% endfor %}
                     </div>
                 </div>
-                {% if not user.is_authenticated %}
-                    <p>This is User Cold Start</p>
+                {% if recommended_products %}
+                    <div class="recommendations">
+                    <h3>People who bought this also bought</h3>
+                        {% for p in recommended_products %}
+                            <div class="item">
+                                <a href="{{ p.get_absolute_url }}">
+                                    <img style="height: 150px; width: 150px" src="{% if p.image %}{{ p.image.url }}
+                                    {% else %}
+                                    {% static "img/no_image.png" %}
+                                    {% endif %}">
+                                </a>
+                                <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% endif %}
             </div>
         </div>

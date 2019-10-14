@@ -15,7 +15,6 @@ urlpatterns = [
          name='logout'),
     path('profile/', login_required(UserView.as_view()), name='profile'),
     path('register/', register, name='register'),
-    path('log_searched/', log_searched, name='log_searched')
-    path('search_store/<int:user_id>/<int:product_id>', StoreBrowsingHistoryAPIView.as_view(),
-         name='store_browsing_history'),
+    path('log_searched/', log_searched, name='log_searched'),
+    path('search_store/<int:user_id>/<int:product_id>', StoreBrowsingHistoryAPIView.as_view(), name='store_browsing_history'),
 ]

@@ -3,14 +3,11 @@ from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 
 from users.forms import SignUpForm, UserProfileForm
-<<<<<<< HEAD
 from users.models import UserProfile 
 from django.http import HttpResponse
-=======
 from rest_framework import generics
 from users.serializers import BrowsingHistorySerializer
 from users.models import InAppSearchHistory
->>>>>>> dev
 
 for profile in UserProfile.objects.filter(user_id=2):
     print(profile.chosen_product)
